@@ -1,0 +1,27 @@
+:root { --ink:#191816; --paper:#fcfbf7; --line:#e7e3d8; --wine:#8d102b; --gold:#c8921d; --navy:#1d2b46; --muted:#9b998f; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; background:var(--paper); color:var(--ink); font-family:"DM Sans",sans-serif; }
+.container { width:min(1320px, calc(100% - 48px)); margin:auto; }
+.edition-bar { background:var(--navy); color:#e9e7df; font:500 12px "DM Mono",monospace; letter-spacing:.04em; }
+.edition-content { height:32px; display:flex; align-items:center; justify-content:space-between; }
+.edition-content i { display:inline-block; width:7px; height:7px; background:var(--gold); border-radius:50%; margin-right:8px; }
+.site-header { padding:20px 0 16px; }
+.brand-row { display:flex; align-items:center; gap:14px; }
+.brand { font:italic 800 34px "Playfair Display",serif; color:var(--ink); text-decoration:none; letter-spacing:-.06em; }
+.brand span { color:var(--wine); }
+.tagline,.section-heading p,.byline,.story-rankings p { color:var(--muted); font:500 12px "DM Mono",monospace; }
+.tools { margin-left:auto; display:flex; gap:12px; }
+.search { display:flex; align-items:center; gap:8px; width:270px; padding:10px 15px; border:1px solid var(--line); border-radius:22px; background:#f4f2eb; color:var(--muted); }
+.search input { width:100%; background:transparent; border:0; outline:0; font:14px "DM Sans",sans-serif; }
+.theme-button { border:1px solid var(--line); border-radius:50%; width:42px; background:#f4f2eb; font-size:20px; cursor:pointer; }
+nav { display:flex; gap:8px; margin-top:18px; } nav a { text-transform:uppercase; color:#67645d; text-decoration:none; border:1px solid var(--line); border-radius:22px; padding:10px 18px; font:500 12px "DM Mono",monospace; } nav a.active, nav a:hover { color:white; background:var(--wine); border-color:var(--wine); }
+.headline-ticker { display:flex; background:#1a1815; color:#e9e6dc; min-height:34px; overflow:hidden; font:500 13px "DM Mono",monospace; white-space:nowrap; }
+.ticker-label { display:grid; place-items:center; color:#201b0c; background:var(--gold); padding:0 26px; text-transform:uppercase; font-weight:bold; }
+.ticker-items { display:flex; gap:56px; align-items:center; padding-left:50px; animation:ticker 32s linear infinite; }.ticker-items span::first-letter { color:var(--gold); } @keyframes ticker { to { transform:translateX(-25%); } }
+.section-heading { display:flex; align-items:center; gap:28px; margin-top:32px; }.section-heading h1,.section-heading h2 { margin:0; font:700 27px "Playfair Display",serif; letter-spacing:-.04em; }.section-heading div { height:1px; background:var(--line); flex:1; }.section-heading p { margin:0; white-space:nowrap; }
+.spotlight-grid { display:grid; grid-template-columns:minmax(0, 2fr) minmax(310px, 1.2fr); gap:36px; margin-top:20px; }.lead-image,.card-image { background:linear-gradient(120deg,#830b29,#b7737c); border-radius:6px; }.lead-image { height:460px; }.category { display:inline-block; margin:15px 0 8px; padding:4px 9px; border-radius:10px; background:var(--wine); color:white; text-transform:uppercase; font:600 10px "DM Mono",monospace; }.lead-story h2 { max-width:720px; margin:0; font:800 31px "Playfair Display",serif; letter-spacing:-.045em; }.summary { max-width:760px; color:#69665f; font-size:17px; line-height:1.45; margin:12px 0; }.byline { margin:0; }.byline b { color:var(--gold); }
+.story-rankings { list-style:none; margin:0; padding:0; }.story-rankings li { display:flex; gap:26px; padding:0 0 16px; margin-bottom:16px; border-bottom:1px solid var(--line); }.story-rankings span { color:var(--gold); font:italic 27px "Playfair Display",serif; }.story-rankings h3 { margin:2px 0 7px; font-size:16px; }.story-rankings p { margin:0; }
+.latest { margin:65px 0; }.latest .section-heading { margin:0 0 22px; }.cards { display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }.card-image { height:190px; }.gold { background:linear-gradient(125deg,#bd8314,#e2bd68); }.rose { background:linear-gradient(120deg,#7e1730,#c17b83); }.story-card h3 { margin:0 0 8px; font:700 22px "Playfair Display",serif; }.story-card > p:last-child { color:#706d66; margin:0; line-height:1.4; }
+body.dark { --paper:#171715; --ink:#f4f1e9; --line:#393732; --muted:#aaa69c; } body.dark .search,body.dark .theme-button { background:#292824; color:#eee; } body.dark .edition-bar { background:#111a2d; }
+@media (max-width:760px) { .container { width:min(100% - 30px,1320px); }.edition-content span:last-child,.tagline,.search { display:none; }.tools { margin-left:auto; }.spotlight-grid,.cards { grid-template-columns:1fr; }.lead-image { height:270px; }.story-rankings { margin-top:12px; }.section-heading { gap:14px; }.section-heading p { font-size:10px; }.headline-ticker { font-size:11px; }.ticker-label { padding:0 12px; }.lead-story h2 { font-size:27px; } }
