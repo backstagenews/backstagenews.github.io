@@ -1,505 +1,161 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Backstage — what's running, right now</title>
-<meta name="description" content="Backstage brings you the latest Nigerian news, entertainment, sports, and business — updated daily with verified, sourced reporting.">
-<meta property="og:title" content="Backstage — what's running, right now">
-<meta property="og:description" content="Backstage brings you the latest Nigerian news, entertainment, sports, and business — updated daily with verified, sourced reporting.">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Backstage">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Backstage — what's running, right now">
-<meta name="twitter:description" content="Backstage brings you the latest Nigerian news, entertainment, sports, and business — updated daily with verified, sourced reporting.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-<style>:root{
-  --bg:#FAF9F5; --bg-raised:#FFFFFF; --bg-soft:#F0EEE6;
-  --ink:#17150F; --ink-soft:#5B584E; --ink-faint:#93907F; --line:#E2DFD2;
-  --curtain:#7D1226; --gold:#C9962E; --navy:#1C2740;
-  --shadow:0 1px 2px rgba(23,21,15,0.04);
-}
-*{ box-sizing:border-box; }
-html,body{ margin:0; padding:0; }
-body{ background:var(--bg); color:var(--ink); font-family:'Inter', -apple-system, sans-serif; }
-a{ color:inherit; text-decoration:none; }
-.wrap{ max-width:1240px; margin:0 auto; padding:0 26px; }
-.top-strip{ background:var(--navy); color:#E7E9F0; }
-.top-strip .wrap{ display:flex; justify-content:space-between; align-items:center; padding:7px 26px; font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.03em; }
-.on-air{ display:inline-flex; align-items:center; gap:7px; }
-.on-air .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold); }
-header.site-header{ background:var(--bg); border-bottom:1px solid var(--line); }
-.header-row{ display:flex; align-items:center; justify-content:space-between; padding:18px 0 14px; gap:20px; flex-wrap:wrap; }
-.brand{ display:flex; align-items:baseline; gap:12px; }
-.brand .mark{ font-family:'Newsreader', serif; font-weight:700; font-style:italic; font-size:32px; letter-spacing:-.01em; }
-.brand .mark span{ color:var(--curtain); font-style:normal; }
-.brand .tagline{ font-size:12px; color:var(--ink-faint); }
-.tabs{ display:flex; gap:6px; padding-bottom:14px; flex-wrap:wrap; }
-.tab{ font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.04em; text-transform:uppercase; padding:8px 15px; border-radius:18px; border:1px solid var(--line); background:var(--bg-raised); color:var(--ink-soft); }
-.tab.active{ background:var(--curtain); border-color:var(--curtain); color:#fff; }
-.ticker-bar{ background:var(--ink); display:flex; align-items:stretch; overflow:hidden; }
-.ticker-label{ background:var(--gold); color:var(--ink); flex:none; font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11px; letter-spacing:.06em; padding:8px 16px; display:flex; align-items:center; text-transform:uppercase; }
-.ticker-scroll{ flex:1; overflow:hidden; display:flex; align-items:center; }
-.ticker-track{ display:flex; white-space:nowrap; width:max-content; animation-name:scroll-left; animation-timing-function:linear; animation-iteration-count:infinite; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--bg); }
-.ticker-track span{ padding:0 28px; }
-.ticker-track span a{ color:inherit; }
-.ticker-track span::before{ content:"◆"; color:var(--gold); font-size:8px; margin-right:14px; }
-@keyframes scroll-left{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
-section{ padding:34px 0; }
-.sec-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:20px; gap:12px; flex-wrap:wrap; }
-.sec-head h2{ font-family:'Newsreader', serif; font-weight:600; font-size:24px; margin:0; }
-.sec-head .rule{ flex:1; height:1px; background:var(--line); margin:0 16px; }
-.sec-head .meta-note{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--ink-faint); }
-.spotlight{ display:grid; grid-template-columns:1.6fr 1fr; gap:34px; }
-.spotlight-lead .thumb{ width:100%; aspect-ratio:16/9.5; background:var(--bg-soft); border-radius:6px; overflow:hidden; box-shadow:var(--shadow); }
-.spotlight-lead .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-.chip{ display:inline-flex; align-items:center; gap:5px; font-family:'JetBrains Mono', monospace; font-weight:600; font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:#fff; padding:4px 10px; border-radius:12px; margin:14px 0 10px; }
-.spotlight-lead h3{ font-family:'Newsreader', serif; font-weight:600; font-size:30px; line-height:1.16; margin:0 0 10px; }
-.spotlight-lead h3 a:hover{ text-decoration:underline; text-decoration-color:var(--gold); }
-.spotlight-lead p.excerpt{ font-size:15px; color:var(--ink-soft); line-height:1.58; margin:0 0 10px; }
-.meta{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--ink-faint); }
-.trending-list{ list-style:none; margin:0; padding:0; }
-.trending-list li{ display:flex; gap:13px; padding:14px 0; border-bottom:1px solid var(--line); }
-.trending-list li:first-child{ padding-top:0; }
-.trending-list .num{ font-family:'Newsreader', serif; font-weight:700; font-style:italic; font-size:24px; color:var(--gold); flex:none; width:28px; }
-.trending-list h4{ font-family:'Inter', sans-serif; font-weight:600; font-size:14px; line-height:1.35; margin:0 0 4px; }
-.trending-list h4 a:hover{ text-decoration:underline; text-decoration-color:var(--gold); }
-.grid-3{ display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; }
-.card{ background:var(--bg-raised); border:1px solid var(--line); border-radius:8px; overflow:hidden; box-shadow:var(--shadow); }
-.card .thumb{ width:100%; aspect-ratio:16/10; background:var(--bg-soft); overflow:hidden; }
-.card .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-.card .card-body{ padding:14px 16px 16px; }
-.card h4{ font-family:'Newsreader', serif; font-weight:600; font-size:16.5px; line-height:1.32; margin:8px 0 7px; }
-.card h4 a:hover{ text-decoration:underline; text-decoration-color:var(--gold); }
-.card p{ font-size:13px; color:var(--ink-soft); line-height:1.5; margin:0 0 8px; }
-.back-link{ display:inline-flex; align-items:center; gap:6px; font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-soft); margin:26px 0 22px; }
-.back-link:hover{ color:var(--curtain); }
-.article-page{ max-width:760px; margin:0 auto; padding-bottom:20px; }
-.article-page .thumb{ width:100%; aspect-ratio:16/9; background:var(--bg-soft); border-radius:8px; overflow:hidden; box-shadow:var(--shadow); }
-.article-page .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-.article-page .caption{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--ink-faint); margin-top:8px; font-style:italic; }
-.article-page h1{ font-family:'Newsreader', serif; font-weight:600; font-size:36px; line-height:1.15; margin:20px 0 12px; }
-.article-page .meta{ margin-bottom:10px; font-size:12px; }
-.article-page .excerpt{ font-size:17px; font-style:italic; color:var(--ink-soft); line-height:1.55; margin:14px 0 22px; padding:14px 18px; border-left:3px solid var(--gold); background:var(--bg-soft); }
-.article-text{ font-family:'Newsreader', serif; font-size:18px; line-height:1.75; color:var(--ink); }
-.article-text p{ margin:0 0 18px; }
-.source-line{ font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--ink-faint); margin:6px 0 0; }
-.source-line a{ color:var(--curtain); }
-.share-row{ display:flex; align-items:center; gap:10px; margin:30px 0 10px; padding-top:22px; border-top:1px solid var(--line); }
-.share-row .share-label{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-right:6px; }
-.share-btn{ width:36px; height:36px; border-radius:50%; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--ink-soft); flex:none; }
-.share-btn:hover{ border-color:var(--curtain); color:var(--curtain); }
-.pagination{ display:flex; align-items:center; justify-content:center; gap:8px; margin-top:34px; flex-wrap:wrap; }
-.pagination .page-link{ font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.04em; text-transform:uppercase; padding:9px 16px; border-radius:20px; border:1px solid var(--line); color:var(--ink-soft); }
-.pagination .page-link:hover{ border-color:var(--curtain); color:var(--curtain); }
-.pagination .page-num{ font-family:'JetBrains Mono', monospace; font-size:12px; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:1px solid var(--line); color:var(--ink-soft); }
-.pagination .page-num:hover{ border-color:var(--curtain); color:var(--curtain); }
-.pagination .page-num.active{ background:var(--curtain); border-color:var(--curtain); color:#fff; }
-.more-stories{ max-width:760px; margin:20px auto 60px; border-top:1px solid var(--line); padding-top:26px; }
-.more-stories h3{ font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 16px; }
-.more-list{ list-style:none; margin:0; padding:0; display:grid; gap:14px; }
-.more-list h4{ font-family:'Newsreader', serif; font-weight:600; font-size:16px; margin:0; }
-.more-list h4 a:hover{ text-decoration:underline; text-decoration-color:var(--gold); }
-footer{ background:var(--navy); color:#D6D9E5; margin-top:10px; }
-footer .footer-top{ padding:44px 26px 10px; }
-footer .footer-grid{ display:grid; grid-template-columns:repeat(4, 1fr) 1.3fr; gap:30px; padding-bottom:36px; border-bottom:1px solid rgba(255,255,255,0.12); }
-footer .fcol h4{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#9AA1BC; margin:0 0 16px; }
-footer .fcol ul{ list-style:none; margin:0; padding:0; display:grid; gap:10px; }
-footer .fcol a{ color:#D6D9E5; font-size:13.5px; }
-footer .fcol a:hover{ color:var(--gold); text-decoration:underline; }
-footer .fsocial{ display:flex; gap:12px; margin-bottom:22px; }
-footer .fsocial a{ width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center; color:#D6D9E5; }
-footer .fsocial a:hover{ border-color:var(--gold); color:var(--gold); }
-footer .fnewsletter h4{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#9AA1BC; margin:0 0 14px; }
-footer .fnewsletter-row{ display:flex; gap:8px; max-width:320px; }
-footer .fnewsletter-row input{ flex:1; padding:10px 12px; border-radius:6px; border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.05); color:#fff; font-family:'Inter',sans-serif; font-size:13px; }
-footer .fnewsletter-row input::placeholder{ color:#8891AB; }
-footer .fnewsletter-row button{ padding:10px 18px; border-radius:6px; border:none; background:var(--gold); color:var(--navy); font-family:'JetBrains Mono', monospace; font-size:11.5px; font-weight:700; letter-spacing:.04em; cursor:pointer; }
-footer .fnewsletter-note{ font-size:11px; color:#8891AB; margin-top:10px; line-height:1.5; }
-footer .footer-bottom{ padding:22px 26px 30px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
-footer .fmark{ font-family:'Newsreader', serif; font-weight:700; font-style:italic; font-size:20px; color:#fff; }
-footer .fmark span{ color:var(--gold); font-style:normal; }
-footer .ftagline{ font-family:'JetBrains Mono', monospace; font-size:11px; color:#8891AB; margin-top:4px; }
-footer .flegal{ font-family:'JetBrains Mono', monospace; font-size:11px; color:#8891AB; display:flex; gap:16px; flex-wrap:wrap; }
-footer .flegal a{ color:#8891AB; }
-footer .flegal a:hover{ color:var(--gold); }
-.search-box{ display:flex; align-items:center; gap:8px; background:var(--bg-soft); border:1px solid var(--line); border-radius:22px; padding:8px 16px; margin:0 0 14px; max-width:320px; }
-.search-box input{ border:none; background:transparent; outline:none; color:var(--ink); font-family:'Inter', sans-serif; font-size:13px; width:100%; }
-.search-box input::placeholder{ color:var(--ink-faint); }
-.search-box svg{ flex:none; opacity:.5; }
-.search-results-list{ display:grid; gap:16px; }
-.search-results-list .card{ display:grid; grid-template-columns:140px 1fr; gap:16px; }
-.search-results-list .card .thumb{ aspect-ratio:1; }
-.search-empty{ font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--ink-faint); padding:20px 0; }
-.static-page{ max-width:720px; margin:0 auto; padding:40px 0 60px; }
-.quiz-wrap{ max-width:620px; margin:0 auto; padding:40px 0 60px; }
-.quiz-header{ text-align:center; margin-bottom:32px; }
-.quiz-header h1{ font-family:'Newsreader', serif; font-weight:600; font-size:32px; margin:0 0 8px; }
-.quiz-header p{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink-faint); letter-spacing:.04em; }
-.quiz-card{ background:var(--bg-soft); border:1px solid var(--line); border-radius:12px; padding:32px 28px; }
-.quiz-progress{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--ink-faint); letter-spacing:.05em; text-transform:uppercase; margin-bottom:16px; }
-.quiz-question{ font-family:'Newsreader', serif; font-size:22px; font-weight:600; line-height:1.4; margin:0 0 24px; }
-.quiz-options{ display:grid; gap:10px; }
-.quiz-option{ text-align:left; padding:14px 18px; border-radius:8px; border:1px solid var(--line); background:var(--surface); font-family:'Inter', sans-serif; font-size:15px; color:var(--ink); cursor:pointer; transition:border-color .15s; }
-.quiz-option:hover{ border-color:var(--curtain); }
-.quiz-option.correct{ border-color:#3B6B52; background:rgba(59,107,82,0.12); font-weight:600; }
-.quiz-option.wrong{ border-color:var(--curtain); background:rgba(125,18,38,0.10); }
-.quiz-option:disabled{ cursor:default; }
-.quiz-next-btn{ margin-top:20px; width:100%; padding:14px; border-radius:8px; background:var(--curtain); color:#fff; font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; border:none; cursor:pointer; }
-.quiz-next-btn:hover{ background:#5F0E1D; }
-.quiz-result{ text-align:center; }
-.quiz-result .score{ font-family:'Newsreader', serif; font-size:52px; font-weight:700; color:var(--curtain); margin:12px 0; }
-.quiz-result p{ font-family:'Inter', sans-serif; font-size:15px; color:var(--ink-soft); }
-.quiz-share-row{ margin-top:24px; display:flex; justify-content:center; gap:10px; }
-.static-page h1{ font-family:'Newsreader', serif; font-weight:600; font-size:34px; margin:0 0 18px; }
-.static-page p{ font-family:'Newsreader', serif; font-size:17px; line-height:1.7; color:var(--ink); margin:0 0 16px; }
-.static-page .contact-box{ background:var(--bg-soft); border:1px solid var(--line); border-radius:8px; padding:22px 24px; margin-top:20px; }
-.static-page .contact-box a{ color:var(--curtain); font-weight:600; }
-@media (max-width:560px){
-  .search-results-list .card{ grid-template-columns:90px 1fr; }
-}
-@media (max-width:560px){
-  footer .footer-grid{ grid-template-columns:1fr; }
-  footer .footer-bottom{ flex-direction:column; align-items:flex-start; }
-}
-@media (max-width:900px){
-  .spotlight{ grid-template-columns:1fr; }
-  .grid-3{ grid-template-columns:1fr 1fr; }
-  footer .wrap{ flex-direction:column; }
-  footer .fnote{ text-align:left; }
-}
-@media (max-width:560px){
-  .grid-3{ grid-template-columns:1fr; }
-  .brand .mark{ font-size:26px; }
-  .article-page h1{ font-size:27px; }
-}
-</style>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#7D1226">
-<link rel="apple-touch-icon" href="icons/icon-180.png">
-<link rel="icon" href="icons/icon-32.png" sizes="32x32">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Backstage">
-<script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6088754777683274" crossorigin="anonymous"></script>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
 </head>
 <body>
-<div class="top-strip"><div class="wrap"><span>Today's Edition</span><span class="on-air"><span class="dot"></span>LIVE</span></div></div>
-<header class="site-header"><div class="wrap">
-<div class="header-row">
-<a class="brand" href="index.html"><div class="mark">Back<span>stage</span></div><div class="tagline">what's running, right now</div></a>
-</div>
-<form class="search-box" action="search.html" method="get">
-<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-<input type="text" name="q" placeholder="Search headlines...">
-</form>
-<div class="tabs"><a class="tab active" href="index.html">All</a><a class="tab" href="news.html">News</a><a class="tab" href="entertainment.html">Entertainment</a><a class="tab" href="sports.html">Sports</a><a class="tab" href="business.html">Business</a></div>
-</div></header>
-<div class="ticker-bar"><div class="ticker-label">Headlines</div>
-<div class="ticker-scroll"><div class="ticker-track" style="animation-duration:1472s"><span><a href="osun-inec-declares-adeleke-winner.html">Osun Election: INEC Declares Adeleke Winner With 511,067 Votes</a></span><span><a href="osun-pdp-chairman-arrested-ilesa.html">Osun Election: PDP Chairman Arrested in Ilesa, Adeleke Demands Release</a></span><span><a href="osun-eu-observers-323-offences.html">Osun Election: EU Observers Report 323 Electoral Offences, 38 Security Incidents</a></span><span><a href="indonesia-earthquake-flores-island-deaths.html">Indonesia Earthquake: Death Toll Passes 47 After 7.7-Magnitude Quake Hits Flores Island</a></span><span><a href="nigerian-army-repels-iswap-borno-base.html">Nigerian Army Repels ISWAP Attack on Borno Military Base</a></span><span><a href="nff-committee-super-falcons-world-cup-failure.html">NFF Sets Up Committee to Investigate Super Falcons' World Cup Qualification Failure</a></span><span><a href="zambia-election-vote-count-suspended-violence.html">Zambia: Vote Count Suspended Over Violence and Ballot Theft, Then Resumed</a></span><span><a href="psg-sign-ferran-torres-barcelona.html">PSG Complete €50m Signing of World Cup Winner Ferran Torres From Barcelona</a></span><span><a href="aregbesola-loses-polling-unit-apc.html">Aregbesola Humiliated as APC Wins His Own Polling Unit Despite Backing ADC</a></span><span><a href="army-15-brigade-dismantle-ipob-esn-anambra.html">Army's New 15 Brigade Dismantles 3 IPOB/ESN Camps in Anambra, Rescues 6 Children</a></span><span><a href="jowizaza-father-freed-kidnappers-anambra.html">Jowizaza's Father, Billionaire Joseph Ezeokafor, Freed After 11 Days in Kidnappers' Custody</a></span><span><a href="osun-lawmaker-arrested-146-mercenaries.html">Osun Election: Accord Lawmaker Arrested With 146 Suspected Mercenaries in Ikire</a></span><span><a href="dhq-x-account-hacked-crypto-posts.html">Defence Headquarters' X Account Hacked, Flooded With Crypto Posts</a></span><span><a href="kwara-ilorin-tanker-petrol-spill-panic.html">Panic in Ilorin as 45,000 Litres of Petrol Spills From Tanker</a></span><span><a href="iran-rejects-trump-hormuz-territory-claim.html">Iran Rejects Trump's "Delusions" Over Claim to Strait of Hormuz</a></span><span><a href="chelsea-3-1-real-sociedad-xabi-alonso-debut.html">Chelsea Beat Real Sociedad 3-1 in Xabi Alonso's First Match as Manager</a></span><span><a href="brentford-7-0-eintracht-frankfurt.html">Brentford Thrash Eintracht Frankfurt 7-0 in Pre-Season Rout</a></span><span><a href="naira-17-year-reserve-high-n1358.html">Naira Hits 17-Year Reserve High as Currency Strengthens to N1,358/$</a></span><span><a href="osun-adeleke-accuses-police-apc-intimidation.html">Osun Election: Adeleke Accuses Police of Aiding APC to Intimidate Voters</a></span><span><a href="osun-adeleke-loses-bisi-akande-polling-unit.html">Osun Election: Adeleke Loses at Bisi Akande's Polling Unit</a></span><span><a href="osun-adeleke-wins-oyinlola-polling-unit.html">Osun Election: Adeleke Wins at Oyinlola's Polling Unit Despite Ex-Governor's APC Endorsement</a></span><span><a href="osun-adeleke-wins-own-polling-unit-ede.html">Osun Election: Jubilation in Ede as Adeleke Wins His Own Polling Unit With 421 Votes</a></span><span><a href="osun-oyebamiji-wins-boluwaduro-polling-unit.html">Osun Election: Oyebamiji Defeats Adeleke at Boluwaduro Polling Unit</a></span><span><a href="oyo-police-arrest-10-human-parts-trade.html">Oyo Police Arrest 10 Over Alleged Human Parts Trade, Recover Heart, Skull</a></span><span><a href="osun-election-ejigbo-violence-adc-candidate.html">Osun Election: ADC Candidate Salaam Whisked Away as Violence Erupts at Polling Unit</a></span><span><a href="katsina-police-foil-bandit-attack-fulalawa.html">Police Foil Bandit Attack, Rescue Kidnap Victims in Katsina</a></span><span><a href="cristian-romero-tottenham-atletico-madrid-transfer.html">Cristian Romero Completes €40m Move From Tottenham to Atlético Madrid</a></span><span><a href="osun-election-day-voting-results-live.html">Osun Election: Voting Concludes, Counting Underway Across State</a></span><span><a href="man-united-4-2-ac-milan-preseason-defeat.html">AC Milan Complete Stunning Comeback to Beat Man United 4-2 in Pre-Season Finale</a></span><span><a href="sec-freezes-assets-terrorist-financiers.html">SEC Freezes Assets of Six Individuals, Three Firms Over Terrorism Financing</a></span><span><a href="apm-pdp-candidates-withdraw-endorse-adeleke.html">APM, PDP Candidates Withdraw From Osun Race, Endorse Adeleke</a></span><span><a href="tinubu-signs-npera-bill-ports-regulator.html">Tinubu Signs NPERA Bill Into Law, Creating Dedicated Port Regulator</a></span><span><a href="katsina-dss-northwest-security-collaboration.html">Katsina Governor, DSS Chief Call for Stronger North-West Security Collaboration</a></span><span><a href="luigi-mangione-guilty-plea-unitedhealthcare-ceo.html">Luigi Mangione Pleads Guilty in Killing of UnitedHealthcare CEO</a></span><span><a href="congo-ebola-outbreak-2000-deaths.html">Congo Ebola Death Toll Passes 2,000 in Fastest-Growing Outbreak on Record</a></span><span><a href="lukaku-farewell-napoli-message.html">Lukaku Bids Farewell to Napoli, Thanks Club for Career Revival</a></span><span><a href="edo-okpebholo-4800-special-assistants.html">Edo Governor Okpebholo Appoints 4,800 Special Assistants Across 192 Wards</a></span><span><a href="wizkid-detty-december-fest-2026.html">Wizkid to Headline Detty December Fest 2026 Opening Night</a></span><span><a href="diddy-released-solitary-confinement-prison-fight.html">Diddy Released From Solitary Confinement Following Alleged Prison Fight</a></span><span><a href="amnesty-fadahunsi-name-shame-150-countries.html">Amnesty International Vows to "Name and Shame" Senator Fadahunsi in 150 Countries</a></span><span><a href="super-falcons-eliminated-world-cup-south-africa.html">Super Falcons Eliminated From World Cup Race After 2-1 Loss to South Africa</a></span><span><a href="rivers-police-arrest-18-suspects-firearms.html">Rivers Police Arrest 18 Suspects, Recover 47 Firearms in Two-Month Crackdown</a></span><span><a href="pdp-faction-osun-candidate-court-appeal.html">PDP Faction Claims Court Victory for Osun Candidate Who Already Endorsed Rival</a></span><span><a href="doku-man-city-contract-reijnders-sale.html">Doku Signs New Man City Deal Until 2031 as Reijnders Set to Depart</a></span><span><a href="napoli-badiashile-chelsea-loan-deal.html">Napoli Agree Deal to Sign Badiashile From Chelsea on Loan</a></span><span><a href="trabzonspor-darwin-nunez-al-hilal-loan.html">Trabzonspor Closing In on Darwin Núñez Loan From Al-Hilal</a></span><span><a href="makinde-picks-daura-apm-running-mate.html">Makinde Picks Ex-DSS Chief Lawal Daura as APM Running Mate for 2027</a></span><span><a href="ngx-stock-market-sheds-n1tn-bearish.html">Nigerian Stock Market Sheds N1.17tn as Bearish Trading Intensifies</a></span><span><a href="nigeria-fails-fiscal-transparency-test-2nd-year.html">Nigeria Fails US Fiscal Transparency Test for Second Consecutive Year</a></span><span><a href="efcc-recovers-n115bn-nddc-levies.html">EFCC Recovers N115bn in NDDC Levies From Oil Companies</a></span><span><a href="dangote-refinery-not-enough-africa-fuel-fg.html">Dangote Refinery Alone Can't Meet Africa's Fuel Needs, Says FG</a></span><span><a href="nigeria-startup-funding-crashes-96-percent-july.html">Nigerian Startup Funding Crashes 96% in July After June's $115m Surge</a></span><span><a href="tinubu-shettima-cibn-banking-conference-september.html">Tinubu, Shettima to Headline CIBN Banking Conference in September</a></span><span><a href="ncaa-rfid-baggage-tracking-airports.html">NCAA to Deploy RFID Technology to Curb Baggage Mishandling at Airports</a></span><span><a href="african-airlines-reject-api-pnr-charges.html">African Airlines Reject Charges for Border Security Data Systems</a></span><span><a href="cbn-warns-rejection-standard-n100-note.html">CBN Warns Against Rejection of Standard N100 Note, Threatens Sanctions</a></span><span><a href="enterprise-life-assurance-raises-capital-n18-7bn.html">Enterprise Life Assurance Raises Paid-Up Capital to Over N18.7bn</a></span><span><a href="operation-clean-sweep-iv-north-west-offensive.html">Operation Fansan Yamma Launches Major Offensive to Crush Terrorist Networks in North West</a></span><span><a href="benue-stolen-newborn-recovered-gboko.html">Police Recover Stolen Newborn Baby in Benue, Arrest Suspects</a></span><span><a href="presidency-national-policing-bill-5pm-deadline.html">Presidency Sets 5pm Deadline for Public Input on National Policing Bill</a></span><span><a href="yalda-moaiery-iran-photojournalist-sentenced.html">Iranian Photojournalist Yalda Moaiery Sentenced to 15 Years Over Reporting</a></span><span><a href="paul-ibe-el-rufai-178-days-detention.html">Atiku Aide Claims El-Rufai Detained 178 Days Over Political Persecution</a></span><span><a href="adeleke-campaign-inec-ebonyi-rec-osun.html">Adeleke Campaign Council Demands INEC Explanation Over Ebonyi REC's Presence in Osun</a></span><span><a href="sokoto-1.7bn-motorcycles-banditry.html">Sokoto Approves N1.7bn for 1,000 Motorcycles to Fight Banditry</a></span><span><a href="oyo-constable-resigns-depression-redeployment.html">Oyo CP Orders Probe as Police Constable Resigns Over Failed Redeployment</a></span><span><a href="plateau-mining-pit-collapse-seven-killed.html">Seven Miners Killed as Mining Pit Collapses in Plateau Community</a></span><span><a href="fg-automates-civil-service-postings-ippis.html">FG Automates Civil Service Postings and Promotions With New IPPIS Modules</a></span><span><a href="ndlea-lagos-drug-seizures-10bn.html">NDLEA Seizes N10bn Worth of Drugs in Lagos, Arrests Cocaine Kingpin</a></span><span><a href="iswap-finance-operative-surrenders-borno.html">Alleged Senior ISWAP Finance Operative Surrenders to Troops in Borno</a></span><span><a href="nigeria-atu-chairmanship-abuja-declaration.html">Nigeria Assumes African Telecommunications Union Chairmanship</a></span><span><a href="fubara-backs-chinda-rivers-successor.html">Fubara Backs Kingsley Chinda as Preferred Rivers Successor</a></span><span><a href="atiku-questions-fg-borrowing-oil-windfall.html">Atiku Questions FG Borrowing Amid Alleged N7.98tn Oil Windfall</a></span><span><a href="nigeria-red-sea-tensions-oil-supply-warning.html">Nigeria Warns Red Sea Tensions May Disrupt Oil Supply, Maritime Trade</a></span><span><a href="inec-osun-pvc-centre-attack-wont-disrupt-election.html">INEC Says Attack on Osun PVC Centre Won't Disrupt Governorship Poll</a></span><span><a href="chris-brown-rihanna-testimony-dog-attack-verdict.html">Chris Brown Contests $13M Dog-Attack Verdict Over Rihanna Testimony</a></span><span><a href="manor-solomon-west-ham-transfer.html">Manor Solomon Completes Permanent Move to West Ham</a></span><span><a href="sangare-brentford-record-transfer.html">Brentford Break Club Transfer Record for Sangare</a></span><span><a href="saibari-bayern-munich-signing.html">Bayern Munich Confirm Ismael Saibari Signing</a></span><span><a href="araujo-liverpool-loan-barcelona.html">Ronald Araujo Set for Liverpool Loan From Barcelona</a></span><span><a href="turkey-pkk-pardon-bill.html">Turkey's Parliament Approves Conditional Pardon for PKK Militants</a></span><span><a href="colombia-earthquake-death-toll.html">Colombia Earthquake Death Toll Passes 265, Still Rising</a></span><span><a href="niger-state-troops-foil-terrorist-advance.html">Troops Foil Terrorist Advance of 200 Motorcycles in Niger State</a></span><span><a href="apc-osun-mega-rally.html">APC Chieftains Arrive Osun for Election Mega Rally</a></span><span><a href="kwara-ak47-procurement-arrest.html">Police Foil AK-47 Procurement Deal in Kwara, Arrest Buyer</a></span><span><a href="lagos-lsstf-security-vehicles-donation.html">Firm Donates ₦300m Security Vehicles to Lagos Task Force</a></span><span><a href="nigerian-entertainment-four-deaths-week.html">Nigerian Entertainment Industry Mourns Four Deaths in One Week</a></span><span><a href="mo-abudu-ebonylife-london-cinema.html">Mo Abudu Opens UK's First Cinema Dedicated to African Films</a></span><span><a href="adedimeji-mo-bimpe-triplets-thanksgiving.html">Lateef Adedimeji &amp; Mo Bimpe Hold Thanksgiving for Triplets</a></span><span><a href="osun-election-dig-mohammed-security-deployment.html">Osun Election: IGP Deploys DIG Ishyaku Mohammed to Coordinate Security Operations</a></span><span><a href="fadahunsi-police-questioning-kill-accord-video.html">Police Question Senator Fadahunsi Over Viral "Kill Accord" Remark Ahead of Osun Election</a></span><span><a href="nigerian-army-sscc-course-50-2027.html">Nigerian Army Opens Applications for Short Service Combatant Commission Course 50/2027</a></span><span><a href="psg-uefa-super-cup-aston-villa.html">PSG Retain UEFA Super Cup With 2-1 Win Over Aston Villa</a></span><span><a href="sao-paulo-bus-seized-bolivia-marijuana.html">São Paulo's Bus Seized in Bolivia With 86kg of Marijuana Ahead of Copa Sudamericana Clash</a></span><span><a href="davido-only-artist-number-one-every-year.html">Davido Becomes Only Artist With a No.1 Nigerian Single Every Year Since Chart Tracking Began</a></span><span><a href="igp-disu-washington-cpc-meeting.html">IGP Disu Attends US-Nigeria Security Talks in Washington, Highlights Police Reform Efforts</a></span><span><a href="carrick-confirms-rashford-stays-man-united.html">Carrick Confirms Rashford Will Stay at Man United, Says Forward "Has Come Back Great"</a></span><span><a href="asuu-20-universities-strike-ultimatum.html">ASUU Authorises 20 Universities to Prepare for Strike Over Unimplemented Agreement</a></span><span><a href="military-terrorist-surrenders-213-percent.html">Terrorist Surrenders Rise 213% in North East in One Week, Military Says</a></span><span><a href="inec-osun-ballot-reprint-sdp-candidate.html">INEC Reprints Osun Ballot Papers to Include SDP Candidate Ahead of Saturday's Election</a></span><span><a href="nnpc-production-sharing-contract-framework.html">NNPC to Roll Out New Contract Framework, Unlocking Up to $50bn in Offshore Oil Investment</a></span><span><a href="boniface-leverkusen-comeback-goal-drought.html">Victor Boniface Ends 16-Month Goal Drought With Pre-Season Brace as Leverkusen Comeback Continues</a></span><span><a href="chelsea-transfer-spending-premier-league-2026.html">Chelsea's Big-Spending Summer: 11 Signings Worth Over €400m</a></span><span><a href="real-madrid-sign-denzel-dumfries.html">Real Madrid Confirm Denzel Dumfries Signing to Strengthen Defence</a></span><span><a href="super-falcons-wafcon-eliminated-cameroon.html">Super Falcons Knocked Out of WAFCON 2026, Miss Automatic World Cup Ticket</a></span><span><a href="aviation-strike-lagos-abuja-airports.html">Aviation Workers' Strike Grounds Flights, Strands Passengers in Lagos and Abuja</a></span><span><a href="kebbi-police-killed-bandits-gun-battle.html">10 Policemen, 2 Civilians Killed in Gun Battle With Bandits in Kebbi</a></span><span><a href="zamfara-troops-rescue-18-lakurawa-arrests.html">Troops Rescue 18 Kidnap Victims, Arrest Two Lakurawa Suspects in Zamfara</a></span><span><a href="naira-dollar-exchange-rate-august-12.html">Naira Holds Steady Against Dollar, Trading Around ₦1,364 Officially</a></span><span><a href="dss-releases-marwana-oyo-compensation.html">DSS Releases Carpenter Wrongly Linked to Oyo School Abduction, Pays ₦3m Compensation</a></span><span><a href="creative-industry-next-oil-lai-mohammed.html">Nigeria's Creative Industry Is the Country's "Next Oil," Says Lai Mohammed</a></span><span><a href="davido-trump-osun-election.html">Davido Appeals to Trump Over Osun Election Violence Fears</a></span><span><a href="burna-boy-big-2-declaration.html">Burna Boy: "There's No Big 3 — Just the Big 2, and Then Me"</a></span><span><a href="goodness-ekunke-chess-champion.html">14-Year-Old Nigerian Wins Inaugural World Amateur Rapid Chess Championship</a></span><span><a href="rudeboy-okoye-family-feud-statement.html">Rudeboy Breaks Silence on Okoye Family Feud, Calls for Privacy</a></span><span><a href="article-1.html">Army Rescues Nine Kidnapped Commuters Along Kogi’s Ajaokuta–Itobe Road</a></span><span><a href="article-3.html">Daddy Showkey Credits Akpabio With Helping Him Walk Again After Spinal Injury</a></span><span><a href="osun-inec-declares-adeleke-winner.html">Osun Election: INEC Declares Adeleke Winner With 511,067 Votes</a></span><span><a href="osun-pdp-chairman-arrested-ilesa.html">Osun Election: PDP Chairman Arrested in Ilesa, Adeleke Demands Release</a></span><span><a href="osun-eu-observers-323-offences.html">Osun Election: EU Observers Report 323 Electoral Offences, 38 Security Incidents</a></span><span><a href="indonesia-earthquake-flores-island-deaths.html">Indonesia Earthquake: Death Toll Passes 47 After 7.7-Magnitude Quake Hits Flores Island</a></span><span><a href="nigerian-army-repels-iswap-borno-base.html">Nigerian Army Repels ISWAP Attack on Borno Military Base</a></span><span><a href="nff-committee-super-falcons-world-cup-failure.html">NFF Sets Up Committee to Investigate Super Falcons' World Cup Qualification Failure</a></span><span><a href="zambia-election-vote-count-suspended-violence.html">Zambia: Vote Count Suspended Over Violence and Ballot Theft, Then Resumed</a></span><span><a href="psg-sign-ferran-torres-barcelona.html">PSG Complete €50m Signing of World Cup Winner Ferran Torres From Barcelona</a></span><span><a href="aregbesola-loses-polling-unit-apc.html">Aregbesola Humiliated as APC Wins His Own Polling Unit Despite Backing ADC</a></span><span><a href="army-15-brigade-dismantle-ipob-esn-anambra.html">Army's New 15 Brigade Dismantles 3 IPOB/ESN Camps in Anambra, Rescues 6 Children</a></span><span><a href="jowizaza-father-freed-kidnappers-anambra.html">Jowizaza's Father, Billionaire Joseph Ezeokafor, Freed After 11 Days in Kidnappers' Custody</a></span><span><a href="osun-lawmaker-arrested-146-mercenaries.html">Osun Election: Accord Lawmaker Arrested With 146 Suspected Mercenaries in Ikire</a></span><span><a href="dhq-x-account-hacked-crypto-posts.html">Defence Headquarters' X Account Hacked, Flooded With Crypto Posts</a></span><span><a href="kwara-ilorin-tanker-petrol-spill-panic.html">Panic in Ilorin as 45,000 Litres of Petrol Spills From Tanker</a></span><span><a href="iran-rejects-trump-hormuz-territory-claim.html">Iran Rejects Trump's "Delusions" Over Claim to Strait of Hormuz</a></span><span><a href="chelsea-3-1-real-sociedad-xabi-alonso-debut.html">Chelsea Beat Real Sociedad 3-1 in Xabi Alonso's First Match as Manager</a></span><span><a href="brentford-7-0-eintracht-frankfurt.html">Brentford Thrash Eintracht Frankfurt 7-0 in Pre-Season Rout</a></span><span><a href="naira-17-year-reserve-high-n1358.html">Naira Hits 17-Year Reserve High as Currency Strengthens to N1,358/$</a></span><span><a href="osun-adeleke-accuses-police-apc-intimidation.html">Osun Election: Adeleke Accuses Police of Aiding APC to Intimidate Voters</a></span><span><a href="osun-adeleke-loses-bisi-akande-polling-unit.html">Osun Election: Adeleke Loses at Bisi Akande's Polling Unit</a></span><span><a href="osun-adeleke-wins-oyinlola-polling-unit.html">Osun Election: Adeleke Wins at Oyinlola's Polling Unit Despite Ex-Governor's APC Endorsement</a></span><span><a href="osun-adeleke-wins-own-polling-unit-ede.html">Osun Election: Jubilation in Ede as Adeleke Wins His Own Polling Unit With 421 Votes</a></span><span><a href="osun-oyebamiji-wins-boluwaduro-polling-unit.html">Osun Election: Oyebamiji Defeats Adeleke at Boluwaduro Polling Unit</a></span><span><a href="oyo-police-arrest-10-human-parts-trade.html">Oyo Police Arrest 10 Over Alleged Human Parts Trade, Recover Heart, Skull</a></span><span><a href="osun-election-ejigbo-violence-adc-candidate.html">Osun Election: ADC Candidate Salaam Whisked Away as Violence Erupts at Polling Unit</a></span><span><a href="katsina-police-foil-bandit-attack-fulalawa.html">Police Foil Bandit Attack, Rescue Kidnap Victims in Katsina</a></span><span><a href="cristian-romero-tottenham-atletico-madrid-transfer.html">Cristian Romero Completes €40m Move From Tottenham to Atlético Madrid</a></span><span><a href="osun-election-day-voting-results-live.html">Osun Election: Voting Concludes, Counting Underway Across State</a></span><span><a href="man-united-4-2-ac-milan-preseason-defeat.html">AC Milan Complete Stunning Comeback to Beat Man United 4-2 in Pre-Season Finale</a></span><span><a href="sec-freezes-assets-terrorist-financiers.html">SEC Freezes Assets of Six Individuals, Three Firms Over Terrorism Financing</a></span><span><a href="apm-pdp-candidates-withdraw-endorse-adeleke.html">APM, PDP Candidates Withdraw From Osun Race, Endorse Adeleke</a></span><span><a href="tinubu-signs-npera-bill-ports-regulator.html">Tinubu Signs NPERA Bill Into Law, Creating Dedicated Port Regulator</a></span><span><a href="katsina-dss-northwest-security-collaboration.html">Katsina Governor, DSS Chief Call for Stronger North-West Security Collaboration</a></span><span><a href="luigi-mangione-guilty-plea-unitedhealthcare-ceo.html">Luigi Mangione Pleads Guilty in Killing of UnitedHealthcare CEO</a></span><span><a href="congo-ebola-outbreak-2000-deaths.html">Congo Ebola Death Toll Passes 2,000 in Fastest-Growing Outbreak on Record</a></span><span><a href="lukaku-farewell-napoli-message.html">Lukaku Bids Farewell to Napoli, Thanks Club for Career Revival</a></span><span><a href="edo-okpebholo-4800-special-assistants.html">Edo Governor Okpebholo Appoints 4,800 Special Assistants Across 192 Wards</a></span><span><a href="wizkid-detty-december-fest-2026.html">Wizkid to Headline Detty December Fest 2026 Opening Night</a></span><span><a href="diddy-released-solitary-confinement-prison-fight.html">Diddy Released From Solitary Confinement Following Alleged Prison Fight</a></span><span><a href="amnesty-fadahunsi-name-shame-150-countries.html">Amnesty International Vows to "Name and Shame" Senator Fadahunsi in 150 Countries</a></span><span><a href="super-falcons-eliminated-world-cup-south-africa.html">Super Falcons Eliminated From World Cup Race After 2-1 Loss to South Africa</a></span><span><a href="rivers-police-arrest-18-suspects-firearms.html">Rivers Police Arrest 18 Suspects, Recover 47 Firearms in Two-Month Crackdown</a></span><span><a href="pdp-faction-osun-candidate-court-appeal.html">PDP Faction Claims Court Victory for Osun Candidate Who Already Endorsed Rival</a></span><span><a href="doku-man-city-contract-reijnders-sale.html">Doku Signs New Man City Deal Until 2031 as Reijnders Set to Depart</a></span><span><a href="napoli-badiashile-chelsea-loan-deal.html">Napoli Agree Deal to Sign Badiashile From Chelsea on Loan</a></span><span><a href="trabzonspor-darwin-nunez-al-hilal-loan.html">Trabzonspor Closing In on Darwin Núñez Loan From Al-Hilal</a></span><span><a href="makinde-picks-daura-apm-running-mate.html">Makinde Picks Ex-DSS Chief Lawal Daura as APM Running Mate for 2027</a></span><span><a href="ngx-stock-market-sheds-n1tn-bearish.html">Nigerian Stock Market Sheds N1.17tn as Bearish Trading Intensifies</a></span><span><a href="nigeria-fails-fiscal-transparency-test-2nd-year.html">Nigeria Fails US Fiscal Transparency Test for Second Consecutive Year</a></span><span><a href="efcc-recovers-n115bn-nddc-levies.html">EFCC Recovers N115bn in NDDC Levies From Oil Companies</a></span><span><a href="dangote-refinery-not-enough-africa-fuel-fg.html">Dangote Refinery Alone Can't Meet Africa's Fuel Needs, Says FG</a></span><span><a href="nigeria-startup-funding-crashes-96-percent-july.html">Nigerian Startup Funding Crashes 96% in July After June's $115m Surge</a></span><span><a href="tinubu-shettima-cibn-banking-conference-september.html">Tinubu, Shettima to Headline CIBN Banking Conference in September</a></span><span><a href="ncaa-rfid-baggage-tracking-airports.html">NCAA to Deploy RFID Technology to Curb Baggage Mishandling at Airports</a></span><span><a href="african-airlines-reject-api-pnr-charges.html">African Airlines Reject Charges for Border Security Data Systems</a></span><span><a href="cbn-warns-rejection-standard-n100-note.html">CBN Warns Against Rejection of Standard N100 Note, Threatens Sanctions</a></span><span><a href="enterprise-life-assurance-raises-capital-n18-7bn.html">Enterprise Life Assurance Raises Paid-Up Capital to Over N18.7bn</a></span><span><a href="operation-clean-sweep-iv-north-west-offensive.html">Operation Fansan Yamma Launches Major Offensive to Crush Terrorist Networks in North West</a></span><span><a href="benue-stolen-newborn-recovered-gboko.html">Police Recover Stolen Newborn Baby in Benue, Arrest Suspects</a></span><span><a href="presidency-national-policing-bill-5pm-deadline.html">Presidency Sets 5pm Deadline for Public Input on National Policing Bill</a></span><span><a href="yalda-moaiery-iran-photojournalist-sentenced.html">Iranian Photojournalist Yalda Moaiery Sentenced to 15 Years Over Reporting</a></span><span><a href="paul-ibe-el-rufai-178-days-detention.html">Atiku Aide Claims El-Rufai Detained 178 Days Over Political Persecution</a></span><span><a href="adeleke-campaign-inec-ebonyi-rec-osun.html">Adeleke Campaign Council Demands INEC Explanation Over Ebonyi REC's Presence in Osun</a></span><span><a href="sokoto-1.7bn-motorcycles-banditry.html">Sokoto Approves N1.7bn for 1,000 Motorcycles to Fight Banditry</a></span><span><a href="oyo-constable-resigns-depression-redeployment.html">Oyo CP Orders Probe as Police Constable Resigns Over Failed Redeployment</a></span><span><a href="plateau-mining-pit-collapse-seven-killed.html">Seven Miners Killed as Mining Pit Collapses in Plateau Community</a></span><span><a href="fg-automates-civil-service-postings-ippis.html">FG Automates Civil Service Postings and Promotions With New IPPIS Modules</a></span><span><a href="ndlea-lagos-drug-seizures-10bn.html">NDLEA Seizes N10bn Worth of Drugs in Lagos, Arrests Cocaine Kingpin</a></span><span><a href="iswap-finance-operative-surrenders-borno.html">Alleged Senior ISWAP Finance Operative Surrenders to Troops in Borno</a></span><span><a href="nigeria-atu-chairmanship-abuja-declaration.html">Nigeria Assumes African Telecommunications Union Chairmanship</a></span><span><a href="fubara-backs-chinda-rivers-successor.html">Fubara Backs Kingsley Chinda as Preferred Rivers Successor</a></span><span><a href="atiku-questions-fg-borrowing-oil-windfall.html">Atiku Questions FG Borrowing Amid Alleged N7.98tn Oil Windfall</a></span><span><a href="nigeria-red-sea-tensions-oil-supply-warning.html">Nigeria Warns Red Sea Tensions May Disrupt Oil Supply, Maritime Trade</a></span><span><a href="inec-osun-pvc-centre-attack-wont-disrupt-election.html">INEC Says Attack on Osun PVC Centre Won't Disrupt Governorship Poll</a></span><span><a href="chris-brown-rihanna-testimony-dog-attack-verdict.html">Chris Brown Contests $13M Dog-Attack Verdict Over Rihanna Testimony</a></span><span><a href="manor-solomon-west-ham-transfer.html">Manor Solomon Completes Permanent Move to West Ham</a></span><span><a href="sangare-brentford-record-transfer.html">Brentford Break Club Transfer Record for Sangare</a></span><span><a href="saibari-bayern-munich-signing.html">Bayern Munich Confirm Ismael Saibari Signing</a></span><span><a href="araujo-liverpool-loan-barcelona.html">Ronald Araujo Set for Liverpool Loan From Barcelona</a></span><span><a href="turkey-pkk-pardon-bill.html">Turkey's Parliament Approves Conditional Pardon for PKK Militants</a></span><span><a href="colombia-earthquake-death-toll.html">Colombia Earthquake Death Toll Passes 265, Still Rising</a></span><span><a href="niger-state-troops-foil-terrorist-advance.html">Troops Foil Terrorist Advance of 200 Motorcycles in Niger State</a></span><span><a href="apc-osun-mega-rally.html">APC Chieftains Arrive Osun for Election Mega Rally</a></span><span><a href="kwara-ak47-procurement-arrest.html">Police Foil AK-47 Procurement Deal in Kwara, Arrest Buyer</a></span><span><a href="lagos-lsstf-security-vehicles-donation.html">Firm Donates ₦300m Security Vehicles to Lagos Task Force</a></span><span><a href="nigerian-entertainment-four-deaths-week.html">Nigerian Entertainment Industry Mourns Four Deaths in One Week</a></span><span><a href="mo-abudu-ebonylife-london-cinema.html">Mo Abudu Opens UK's First Cinema Dedicated to African Films</a></span><span><a href="adedimeji-mo-bimpe-triplets-thanksgiving.html">Lateef Adedimeji &amp; Mo Bimpe Hold Thanksgiving for Triplets</a></span><span><a href="osun-election-dig-mohammed-security-deployment.html">Osun Election: IGP Deploys DIG Ishyaku Mohammed to Coordinate Security Operations</a></span><span><a href="fadahunsi-police-questioning-kill-accord-video.html">Police Question Senator Fadahunsi Over Viral "Kill Accord" Remark Ahead of Osun Election</a></span><span><a href="nigerian-army-sscc-course-50-2027.html">Nigerian Army Opens Applications for Short Service Combatant Commission Course 50/2027</a></span><span><a href="psg-uefa-super-cup-aston-villa.html">PSG Retain UEFA Super Cup With 2-1 Win Over Aston Villa</a></span><span><a href="sao-paulo-bus-seized-bolivia-marijuana.html">São Paulo's Bus Seized in Bolivia With 86kg of Marijuana Ahead of Copa Sudamericana Clash</a></span><span><a href="davido-only-artist-number-one-every-year.html">Davido Becomes Only Artist With a No.1 Nigerian Single Every Year Since Chart Tracking Began</a></span><span><a href="igp-disu-washington-cpc-meeting.html">IGP Disu Attends US-Nigeria Security Talks in Washington, Highlights Police Reform Efforts</a></span><span><a href="carrick-confirms-rashford-stays-man-united.html">Carrick Confirms Rashford Will Stay at Man United, Says Forward "Has Come Back Great"</a></span><span><a href="asuu-20-universities-strike-ultimatum.html">ASUU Authorises 20 Universities to Prepare for Strike Over Unimplemented Agreement</a></span><span><a href="military-terrorist-surrenders-213-percent.html">Terrorist Surrenders Rise 213% in North East in One Week, Military Says</a></span><span><a href="inec-osun-ballot-reprint-sdp-candidate.html">INEC Reprints Osun Ballot Papers to Include SDP Candidate Ahead of Saturday's Election</a></span><span><a href="nnpc-production-sharing-contract-framework.html">NNPC to Roll Out New Contract Framework, Unlocking Up to $50bn in Offshore Oil Investment</a></span><span><a href="boniface-leverkusen-comeback-goal-drought.html">Victor Boniface Ends 16-Month Goal Drought With Pre-Season Brace as Leverkusen Comeback Continues</a></span><span><a href="chelsea-transfer-spending-premier-league-2026.html">Chelsea's Big-Spending Summer: 11 Signings Worth Over €400m</a></span><span><a href="real-madrid-sign-denzel-dumfries.html">Real Madrid Confirm Denzel Dumfries Signing to Strengthen Defence</a></span><span><a href="super-falcons-wafcon-eliminated-cameroon.html">Super Falcons Knocked Out of WAFCON 2026, Miss Automatic World Cup Ticket</a></span><span><a href="aviation-strike-lagos-abuja-airports.html">Aviation Workers' Strike Grounds Flights, Strands Passengers in Lagos and Abuja</a></span><span><a href="kebbi-police-killed-bandits-gun-battle.html">10 Policemen, 2 Civilians Killed in Gun Battle With Bandits in Kebbi</a></span><span><a href="zamfara-troops-rescue-18-lakurawa-arrests.html">Troops Rescue 18 Kidnap Victims, Arrest Two Lakurawa Suspects in Zamfara</a></span><span><a href="naira-dollar-exchange-rate-august-12.html">Naira Holds Steady Against Dollar, Trading Around ₦1,364 Officially</a></span><span><a href="dss-releases-marwana-oyo-compensation.html">DSS Releases Carpenter Wrongly Linked to Oyo School Abduction, Pays ₦3m Compensation</a></span><span><a href="creative-industry-next-oil-lai-mohammed.html">Nigeria's Creative Industry Is the Country's "Next Oil," Says Lai Mohammed</a></span><span><a href="davido-trump-osun-election.html">Davido Appeals to Trump Over Osun Election Violence Fears</a></span><span><a href="burna-boy-big-2-declaration.html">Burna Boy: "There's No Big 3 — Just the Big 2, and Then Me"</a></span><span><a href="goodness-ekunke-chess-champion.html">14-Year-Old Nigerian Wins Inaugural World Amateur Rapid Chess Championship</a></span><span><a href="rudeboy-okoye-family-feud-statement.html">Rudeboy Breaks Silence on Okoye Family Feud, Calls for Privacy</a></span><span><a href="article-1.html">Army Rescues Nine Kidnapped Commuters Along Kogi’s Ajaokuta–Itobe Road</a></span><span><a href="article-3.html">Daddy Showkey Credits Akpabio With Helping Him Walk Again After Spinal Injury</a></span></div></div></div>
-<div class="wrap">
-<section>
-<div class="sec-head"><h2>Spotlight</h2><div class="rule"></div><span class="meta-note">116 articles published</span></div>
-<div class="spotlight">
-<div class="spotlight-lead">
-<a href="osun-inec-declares-adeleke-winner.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<span class="chip" style="background:#7D1226">news</span>
-<h3><a href="osun-inec-declares-adeleke-winner.html">Osun Election: INEC Declares Adeleke Winner With 511,067 Votes</a></h3>
-<p class="excerpt" style="border:none;background:none;padding:0;font-style:normal;font-size:15px;">INEC has declared Governor Ademola Adeleke winner of the Osun governorship election with 511,067 votes, defeating APC's Bola Oyebamiji by a margin of 66,252 votes.</p>
-<div class="meta">Staff Reporter · August 16, 2026</div>
-</div>
-<ul class="trending-list"><li><span class="num">1</span><div><h4><a href="army-15-brigade-dismantle-ipob-esn-anambra.html">Army's New 15 Brigade Dismantles 3 IPOB/ESN Camps in Anambra, Rescues 6 Children</a></h4><div class="meta">news · August 16, 2026</div></div></li><li><span class="num">2</span><div><h4><a href="osun-pdp-chairman-arrested-ilesa.html">Osun Election: PDP Chairman Arrested in Ilesa, Adeleke Demands Release</a></h4><div class="meta">news · August 15, 2026</div></div></li><li><span class="num">3</span><div><h4><a href="nff-committee-super-falcons-world-cup-failure.html">NFF Sets Up Committee to Investigate Super Falcons' World Cup Qualification Failure</a></h4><div class="meta">sports · August 15, 2026</div></div></li><li><span class="num">4</span><div><h4><a href="jowizaza-father-freed-kidnappers-anambra.html">Jowizaza's Father, Billionaire Joseph Ezeokafor, Freed After 11 Days in Kidnappers' Custody</a></h4><div class="meta">entertainment · August 15, 2026</div></div></li><li><span class="num">5</span><div><h4><a href="naira-17-year-reserve-high-n1358.html">Naira Hits 17-Year Reserve High as Currency Strengthens to N1,358/$</a></h4><div class="meta">business · August 15, 2026</div></div></li></ul>
-</div>
-</section>
-<section>
-<div class="sec-head"><h2>Latest</h2><div class="rule"></div><span class="meta-note">115 stories · page 1 of 13</span></div>
-<div class="grid-3"><div class="card">
-<a href="plateau-mangu-attack-over-20-killed.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">news</span>
-<h4><a href="plateau-mangu-attack-over-20-killed.html">Over 20 Killed as Gunmen Raid Homes in Plateau’s Mangu LGA</a></h4>
-<p>More than 20 people were reportedly killed in a midnight attack on Binper community in Mangu LGA, Plateau State, as heavily armed men moved house to house.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="us-mission-welcomes-dcm-jimmy-mauldin.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">news</span>
-<h4><a href="us-mission-welcomes-dcm-jimmy-mauldin.html">US Mission Welcomes New Deputy Chief of Mission Jimmy Mauldin to Abuja</a></h4>
-<p>The US Mission in Nigeria has announced the arrival of its new Deputy Chief of Mission, Jimmy Mauldin, in Abuja.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="oyedele-reforms-faac-2-trillion-monthly.html"><div class="thumb"><img src="category-business.png" alt="Backstage business"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">business</span>
-<h4><a href="oyedele-reforms-faac-2-trillion-monthly.html">Finance Minister Says Reforms Have Pushed Monthly FAAC Allocations Above ₦2 Trillion</a></h4>
-<p>Finance Minister Taiwo Oyedele says economic reforms have raised monthly federal allocations to states and local governments to over ₦2 trillion.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="nuee-shuts-eko-electricity-offices-lagos.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">news</span>
-<h4><a href="nuee-shuts-eko-electricity-offices-lagos.html">NUEE Shuts Down Eko Electricity Offices in Lagos Over Unpaid Entitlements</a></h4>
-<p>The electricity workers’ union has shut down Eko Electricity Distribution Company offices in Lagos over poor conditions and unpaid entitlements.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="angelique-kidjo-hollywood-walk-of-fame-star.html"><div class="thumb"><img src="category-entertainment.png" alt="Backstage entertainment"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#C9962E">entertainment</span>
-<h4><a href="angelique-kidjo-hollywood-walk-of-fame-star.html">Angélique Kidjo Becomes First African Artist Honoured With Hollywood Walk of Fame Star</a></h4>
-<p>Benin-born global music star Angélique Kidjo has been celebrated as making history with a star on the Hollywood Walk of Fame.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="ndlea-destroys-301bn-drugs-lagos.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">news</span>
-<h4><a href="ndlea-destroys-301bn-drugs-lagos.html">NDLEA Destroys Nearly 330,000kg of Illicit Drugs Worth ₦301 Billion in Lagos</a></h4>
-<p>The drug agency publicly destroyed a record haul of narcotics valued at over ₦301 billion in a court-ordered exercise at Navy Town, Ojo.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="apc-rejects-adeleke-victory-osun-audit.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">news</span>
-<h4><a href="apc-rejects-adeleke-victory-osun-audit.html">Osun Election: APC Rejects Adeleke’s Victory, Begins Audit of Results</a></h4>
-<p>The APC says it does not accept INEC’s declaration of Ademola Adeleke as winner, and has launched a review of the records.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="kasu-200-lecturers-resign-asuu-strike.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">news</span>
-<h4><a href="kasu-200-lecturers-resign-asuu-strike.html">Over 200 Lecturers Resign From Kaduna State University as ASUU Threatens Strike</a></h4>
-<p>The union says more than 200 academics have quit KASU over poor pay, and issued a two-week ultimatum before a possible indefinite strike.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="first-lady-food-bank-ogun-launch.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">news</span>
-<h4><a href="first-lady-food-bank-ogun-launch.html">First Lady Oluremi Tinubu Leads Zonal Launch of National Food Bank Programme in Ogun</a></h4>
-<p>Nigeria’s First Lady headlined the South-West zonal launch of the National Community Food Bank Programme in Ogun State.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="lagos-warns-dealer-plates-175-vehicles.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">news</span>
-<h4><a href="lagos-warns-dealer-plates-175-vehicles.html">Lagos Warns Against Illegal Use of Dealer Plates, Impounds 175 Vehicles</a></h4>
-<p>The Lagos State Government says it apprehended 175 vehicles in a crackdown on the misuse of dealer number plates.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="us-appoints-new-consul-general-lagos.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">news</span>
-<h4><a href="us-appoints-new-consul-general-lagos.html">US Appoints Brandon Hudspeth as New Consul General in Lagos</a></h4>
-<p>The US Mission in Nigeria has welcomed Brandon Hudspeth as the new Consul General at its Lagos consulate.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="kingibe-accuses-wike-abuja-floods.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">news</span>
-<h4><a href="kingibe-accuses-wike-abuja-floods.html">Senator Kingibe Accuses FCT Minister Wike of Worsening Abuja Floods</a></h4>
-<p>FCT Senator Ireti Kingibe has blamed the FCT Administration under Minister Nyesom Wike for worsening flooding in Abuja.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="ronaldo-marries-georgina-portugal.html"><div class="thumb"><img src="category-sports.png" alt="Backstage sports"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#1C2740">sports</span>
-<h4><a href="ronaldo-marries-georgina-portugal.html">Cristiano Ronaldo Marries Georgina Rodríguez in Private Portugal Ceremony</a></h4>
-<p>The Portuguese superstar and his longtime partner tied the knot in Cascais after a decade together.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="fifa-sacks-lamour-world-cup-sale.html"><div class="thumb"><img src="category-sports.png" alt="Backstage sports"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#1C2740">sports</span>
-<h4><a href="fifa-sacks-lamour-world-cup-sale.html">FIFA Sacks Top Executive Who Criticised Infantino’s World Cup Sale Plan</a></h4>
-<p>COO Kevin Lamour has left FIFA weeks after publicly attacking the now-abandoned plan to sell World Cup stakes to investors.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="man-united-bruno-fernandes-contract-talks.html"><div class="thumb"><img src="category-sports.png" alt="Backstage sports"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#1C2740">sports</span>
-<h4><a href="man-united-bruno-fernandes-contract-talks.html">Man United in Talks Over New Bruno Fernandes Contract as Galatasaray Circle</a></h4>
-<p>Manchester United have opened contract talks with captain Bruno Fernandes, with the midfielder prioritising a stay.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="naira-firms-1350-dollar-strongest-april.html"><div class="thumb"><img src="category-business.png" alt="Backstage business"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">business</span>
-<h4><a href="naira-firms-1350-dollar-strongest-april.html">Naira Firms to Around ₦1,350/$, Its Strongest Level Since April</a></h4>
-<p>The naira closed near ₦1,350 to the dollar at the official market — its best level in nearly four months.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="efcc-probes-kano-airport-currency-seizure.html"><div class="thumb"><img src="category-business.png" alt="Backstage business"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">business</span>
-<h4><a href="efcc-probes-kano-airport-currency-seizure.html">EFCC Probes Suspect After Customs Seizes $73,000 at Kano Airport</a></h4>
-<p>The anti-graft agency opened an investigation after Customs intercepted undeclared foreign currency at Kano airport.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="oil-prices-rise-us-iran-hormuz-deadlock.html"><div class="thumb"><img src="category-business.png" alt="Backstage business"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">business</span>
-<h4><a href="oil-prices-rise-us-iran-hormuz-deadlock.html">Oil Prices Rise as US-Iran Deadline Passes With Strait of Hormuz Still Deadlocked</a></h4>
-<p>Crude climbed after a temporary US-Iran framework expired without a deal to reopen the Strait of Hormuz.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="davido-1m-bet-most-hits-afrobeats.html"><div class="thumb"><img src="category-entertainment.png" alt="Backstage entertainment"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#C9962E">entertainment</span>
-<h4><a href="davido-1m-bet-most-hits-afrobeats.html">Davido Offers $1 Million Bet, Insists ‘Nobody Has More Hits Than Me’</a></h4>
-<p>The Afrobeats star reignited debate over his standing in the genre with a $1 million challenge.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="shallipopi-seyi-vibez-tiblaze-label-dispute.html"><div class="thumb"><img src="category-entertainment.png" alt="Backstage entertainment"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#C9962E">entertainment</span>
-<h4><a href="shallipopi-seyi-vibez-tiblaze-label-dispute.html">Shallipopi, Seyi Vibez and T.I Blaze Drag Label Boss Over Unpaid Royalties</a></h4>
-<p>Three prominent Nigerian artists have publicly accused their label boss of unpaid royalties and alleged forgery.</p>
-<div class="meta">By Staff Reporter · August 18, 2026</div>
-</div></div>
-<div class="card">
-<a href="army-15-brigade-dismantle-ipob-esn-anambra.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">news</span>
-<h4><a href="army-15-brigade-dismantle-ipob-esn-anambra.html">Army's New 15 Brigade Dismantles 3 IPOB/ESN Camps in Anambra, Rescues 6 Children</a></h4>
-<p>Troops of the newly established 15 Brigade dismantled three IPOB/ESN camps in Anambra State, killing three suspects and recovering six children found with detained accomplices.</p>
-<div class="meta">Staff Reporter · August 16, 2026</div>
-</div></div><div class="card">
-<a href="osun-pdp-chairman-arrested-ilesa.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">news</span>
-<h4><a href="osun-pdp-chairman-arrested-ilesa.html">Osun Election: PDP Chairman Arrested in Ilesa, Adeleke Demands Release</a></h4>
-<p>Governor Adeleke condemned the arrest of Osun's PDP Chairman, Sunday Bisi, calling it an attempt to intimidate his supporters during Saturday's governorship election.</p>
-<div class="meta">Staff Reporter · August 15, 2026</div>
-</div></div><div class="card">
-<a href="nff-committee-super-falcons-world-cup-failure.html"><div class="thumb"><img src="category-sports.png" alt="Backstage sports"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#1C2740">sports</span>
-<h4><a href="nff-committee-super-falcons-world-cup-failure.html">NFF Sets Up Committee to Investigate Super Falcons' World Cup Qualification Failure</a></h4>
-<p>The NFF has constituted a fact-finding committee to investigate Nigeria's recent poor performances in international competitions, including the Super Falcons' World Cup qualification failure.</p>
-<div class="meta">Staff Reporter · August 15, 2026</div>
-</div></div><div class="card">
-<a href="jowizaza-father-freed-kidnappers-anambra.html"><div class="thumb"><img src="category-entertainment.png" alt="Backstage entertainment"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#C9962E">entertainment</span>
-<h4><a href="jowizaza-father-freed-kidnappers-anambra.html">Jowizaza's Father, Billionaire Joseph Ezeokafor, Freed After 11 Days in Kidnappers' Custody</a></h4>
-<p>Chief Joseph Ezeokafor, father of socialite Jowizaza, has been freed after 11 days in kidnappers' custody in Anambra, with a ransom reportedly demanded of up to N1.5 billion.</p>
-<div class="meta">Staff Reporter · August 15, 2026</div>
-</div></div><div class="card">
-<a href="naira-17-year-reserve-high-n1358.html"><div class="thumb"><img src="category-business.png" alt="Backstage business"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#3B6B52">business</span>
-<h4><a href="naira-17-year-reserve-high-n1358.html">Naira Hits 17-Year Reserve High as Currency Strengthens to N1,358/$</a></h4>
-<p>The naira strengthened to N1,358.25/$ as Nigeria's external reserves climbed to $52.25 billion, their highest level in 17 years.</p>
-<div class="meta">Staff Reporter · August 15, 2026</div>
-</div></div><div class="card">
-<a href="osun-eu-observers-323-offences.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">news</span>
-<h4><a href="osun-eu-observers-323-offences.html">Osun Election: EU Observers Report 323 Electoral Offences, 38 Security Incidents</a></h4>
-<p>EU election observers recorded 323 electoral offences and 38 security incidents during Saturday's Osun governorship election, based on reports from 823 accredited observers.</p>
-<div class="meta">Staff Reporter · August 15, 2026</div>
-</div></div><div class="card">
-<a href="psg-sign-ferran-torres-barcelona.html"><div class="thumb"><img src="category-sports.png" alt="Backstage sports"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#1C2740">sports</span>
-<h4><a href="psg-sign-ferran-torres-barcelona.html">PSG Complete €50m Signing of World Cup Winner Ferran Torres From Barcelona</a></h4>
-<p>Paris Saint-Germain have completed the signing of Spain forward Ferran Torres from Barcelona for around €50 million, reuniting him with coach Luis Enrique.</p>
-<div class="meta">Staff Reporter · August 15, 2026</div>
-</div></div><div class="card">
-<a href="sec-freezes-assets-terrorist-financiers.html"><div class="thumb"><img src="category-business.png" alt="Backstage business"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#3B6B52">business</span>
-<h4><a href="sec-freezes-assets-terrorist-financiers.html">SEC Freezes Assets of Six Individuals, Three Firms Over Terrorism Financing</a></h4>
-<p>Nigeria's SEC has ordered capital market operators to freeze assets of six individuals and three Bureau de Change firms designated as terrorist financiers linked to ISWAP.</p>
-<div class="meta">Staff Reporter · August 15, 2026</div>
-</div></div><div class="card">
-<a href="indonesia-earthquake-flores-island-deaths.html"><div class="thumb"><img src="category-news.png" alt="Backstage news"></div></a>
-<div class="card-body">
-<span class="chip" style="background:#7D1226">news</span>
-<h4><a href="indonesia-earthquake-flores-island-deaths.html">Indonesia Earthquake: Death Toll Passes 47 After 7.7-Magnitude Quake Hits Flores Island</a></h4>
-<p>A 7.7-magnitude earthquake struck off Indonesia's Flores Island, killing at least 47 people and triggering a tsunami warning that was later lifted.</p>
-<div class="meta">Staff Reporter · August 15, 2026</div>
-</div></div></div>
-<div class="pagination"><a class="page-num active" href="index.html">1</a><a class="page-num" href="latest-2.html">2</a><a class="page-num" href="latest-3.html">3</a><a class="page-num" href="latest-4.html">4</a><a class="page-num" href="latest-5.html">5</a><a class="page-num" href="latest-6.html">6</a><a class="page-num" href="latest-7.html">7</a><a class="page-num" href="latest-8.html">8</a><a class="page-num" href="latest-9.html">9</a><a class="page-num" href="latest-10.html">10</a><a class="page-num" href="latest-11.html">11</a><a class="page-num" href="latest-12.html">12</a><a class="page-num" href="latest-13.html">13</a><a class="page-link" href="latest-2.html">Older →</a></div>
-</section>
-</div>
-<footer>
-<div class="wrap footer-top">
-<div class="footer-grid">
-<div class="fcol"><h4>Sections</h4><ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="news.html">News</a></li>
-<li><a href="entertainment.html">Entertainment</a></li>
-<li><a href="sports.html">Sports</a></li>
-<li><a href="business.html">Business</a></li>
-<li><a href="quiz.html">Daily Quiz</a></li>
-</ul></div>
-<div class="fcol"><h4>Company</h4><ul>
-<li><a href="about.html">About Backstage</a></li>
-<li><a href="contact.html">Contact</a></li>
-<li><a href="contact.html">Advertise With Us</a></li>
-<li><a href="about.html">Editorial Guidelines</a></li>
-</ul></div>
-<div class="fcol"><h4>Support</h4><ul>
-<li><a href="contact.html">Help</a></li>
-<li><a href="contact.html">Submit a Tip</a></li>
-<li><a href="contact.html">Corrections</a></li>
-<li><a href="privacy.html">Privacy Policy</a></li>
-</ul></div>
-<div class="fcol"><h4>Connect</h4>
-<div class="fsocial">
-<a href="#" title="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
-<a href="#" title="X"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4l7.5 8.5L4.5 20H7l5.5-6 4.5 6H20l-8-9.5L18.5 4H16l-5 5.5L7 4z"></path></svg></a>
-<a href="#" title="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></a>
-<a href="#" title="YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9l6 3-6 3z" fill="var(--navy)" stroke="none"></path></svg></a>
-</div>
-</div>
-<div class="fcol fnewsletter">
-<h4>Get the Newsletter</h4>
-<div class="fnewsletter-row">
-<input type="email" placeholder="Enter your email" disabled="">
-<button type="button" disabled="">Subscribe</button>
-</div>
-<div class="fnewsletter-note">Newsletter signup isn’t wired up yet — this is a placeholder ready for whenever you add one.</div>
-</div>
-</div>
-</div>
-<div class="wrap footer-bottom">
-<div>
-<div class="fmark">Back<span>stage</span></div>
-<div class="ftagline">what's running, right now · est. 2026</div>
-</div>
-<div class="flegal">
-<span>© 2026 Backstage. All rights reserved.</span>
-<a href="terms.html">Terms of Service</a>
-<a href="privacy.html">Privacy Policy</a>
-</div>
-</div>
-</footer>
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function () {
-    navigator.serviceWorker.register("service-worker.js").catch(function () {});
-  });
-}
-</script>
-
-</body></html>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1">&lt;title&gt;Backstage — what's running, right now&lt;/title&gt;</p>
+<p class="p1">&lt;meta name="description" content="Backstage brings you the latest Nigerian news, entertainment, sports, and business — updated daily with verified, sourced reporting."&gt;</p>
+<p class="p1">&lt;meta property="og:title" content="Backstage — what's running, right now"&gt;</p>
+<p class="p1">&lt;meta property="og:description" content="Backstage brings you the latest Nigerian news, entertainment, sports, and business — updated daily with verified, sourced reporting."&gt;</p>
+<p class="p1">&lt;meta property="og:type" content="website"&gt;</p>
+<p class="p1">&lt;meta property="og:site_name" content="Backstage"&gt;</p>
+<p class="p1">&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</p>
+<p class="p1">&lt;link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&amp;amp;family=Inter:wght@400;500;600;700&amp;amp;family=JetBrains+Mono:wght@400;500&amp;amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1">&lt;style&gt;:root{</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--bg:#FAF9F5; --bg-raised:#FFFFFF; --bg-soft:#F0EEE6;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--ink:#17150F; --ink-soft:#5B584E; --ink-faint:#93907F; --line:#E2DFD2;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--curtain:#7D1226; --gold:#C9962E; --navy:#1C2740;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>--shadow:0 1px 2px rgba(23,21,15,0.04);</p>
+<p class="p1">}</p>
+<p class="p1">*{ box-sizing:border-box; }</p>
+<p class="p1">html,body{ margin:0; padding:0; }</p>
+<p class="p1">body{ background:var(--bg); color:var(--ink); font-family:'Inter', -apple-system, sans-serif; }</p>
+<p class="p1">a{ color:inherit; text-decoration:none; }</p>
+<p class="p1">.wrap{ max-width:1240px; margin:0 auto; padding:0 26px; }</p>
+<p class="p1">.top-strip{ background:var(--navy); color:#E7E9F0; }</p>
+<p class="p1">.top-strip .wrap{ display:flex; justify-content:space-between; align-items:center; padding:7px 26px; font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.03em; }</p>
+<p class="p1">.on-air{ display:inline-flex; align-items:center; gap:7px; }</p>
+<p class="p1">.on-air .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold); }</p>
+<p class="p1">header.site-header{ background:var(--bg); border-bottom:1px solid var(--line); }</p>
+<p class="p1">.header-row{ display:flex; align-items:center; justify-content:space-between; padding:18px 0 14px; gap:20px; flex-wrap:wrap; }</p>
+<p class="p1">.brand{ display:flex; align-items:baseline; gap:12px; }</p>
+<p class="p1">.brand .mark{ font-family:'Newsreader', serif; font-weight:700; font-style:italic; font-size:32px; letter-spacing:-.01em; }</p>
+<p class="p1">.brand .mark span{ color:var(--curtain); font-style:normal; }</p>
+<p class="p1">.brand .tagline{ font-size:12px; color:var(--ink-faint); }</p>
+<p class="p1">.tabs{ display:flex; gap:6px; padding-bottom:14px; flex-wrap:wrap; }</p>
+<p class="p1">.tab{ font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.04em; text-transform:uppercase; padding:8px 15px; border-radius:18px; border:1px solid var(--line); background:var(--bg-raised); color:var(--ink-soft); }</p>
+<p class="p1">.tab.active{ background:var(--curtain); border-color:var(--curtain); color:#fff; }</p>
+<p class="p1">.ticker-bar{ background:var(--ink); display:flex; align-items:stretch; overflow:hidden; }</p>
+<p class="p1">.ticker-label{ background:var(--gold); color:var(--ink); flex:none; font-family:'JetBrains Mono', monospace; font-weight:700; font-size:11px; letter-spacing:.06em; padding:8px 16px; display:flex; align-items:center; text-transform:uppercase; }</p>
+<p class="p1">.ticker-scroll{ flex:1; overflow:hidden; display:flex; align-items:center; }</p>
+<p class="p1">.ticker-track{ display:flex; white-space:nowrap; width:max-content; animation-name:scroll-left; animation-timing-function:linear; animation-iteration-count:infinite; font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--bg); }</p>
+<p class="p1">.ticker-track span{ padding:0 28px; }</p>
+<p class="p1">.ticker-track span a{ color:inherit; }</p>
+<p class="p1">.ticker-track span::before{ content:"◆"; color:var(--gold); font-size:8px; margin-right:14px; }</p>
+<p class="p1">@keyframes scroll-left{ from{transform:translateX(0);} to{transform:translateX(-50%);} }</p>
+<p class="p1">section{ padding:34px 0; }</p>
+<p class="p1">.sec-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:20px; gap:12px; flex-wrap:wrap; }</p>
+<p class="p1">.sec-head h2{ font-family:'Newsreader', serif; font-weight:600; font-size:24px; margin:0; }</p>
+<p class="p1">.sec-head .rule{ flex:1; height:1px; background:var(--line); margin:0 16px; }</p>
+<p class="p1">.sec-head .meta-note{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--ink-faint); }</p>
+<p class="p1">.spotlight{ display:grid; grid-template-columns:1.6fr 1fr; gap:34px; }</p>
+<p class="p1">.spotlight-lead .thumb{ width:100%; aspect-ratio:16/9.5; background:var(--bg-soft); border-radius:6px; overflow:hidden; box-shadow:var(--shadow); }</p>
+<p class="p1">.spotlight-lead .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }</p>
+<p class="p1">.chip{ display:inline-flex; align-items:center; gap:5px; font-family:'JetBrains Mono', monospace; font-weight:600; font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:#fff; padding:4px 10px; border-radius:12px; margin:14px 0 10px; }</p>
+<p class="p1">.spotlight-lead h3{ font-family:'Newsreader', serif; font-weight:600; font-size:30px; line-height:1.16; margin:0 0 10px; }</p>
+<p class="p1">.spotlight-lead h3 a:hover{ text-decoration:underline; text-decoration-color:var(--gold); }</p>
+<p class="p1">.spotlight-lead p.excerpt{ font-size:15px; color:var(--ink-soft); line-height:1.58; margin:0 0 10px; }</p>
+<p class="p1">.meta{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--ink-faint); }</p>
+<p class="p1">.trending-list{ list-style:none; margin:0; padding:0; }</p>
+<p class="p1">.trending-list li{ display:flex; gap:13px; padding:14px 0; border-bottom:1px solid var(--line); }</p>
+<p class="p1">.trending-list li:first-child{ padding-top:0; }</p>
+<p class="p1">.trending-list .num{ font-family:'Newsreader', serif; font-weight:700; font-style:italic; font-size:24px; color:var(--gold); flex:none; width:28px; }</p>
+<p class="p1">.trending-list h4{ font-family:'Inter', sans-serif; font-weight:600; font-size:14px; line-height:1.35; margin:0 0 4px; }</p>
+<p class="p1">.trending-list h4 a:hover{ text-decoration:underline; text-decoration-color:var(--gold); }</p>
+<p class="p1">.grid-3{ display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; }</p>
+<p class="p1">.card{ background:var(--bg-raised); border:1px solid var(--line); border-radius:8px; overflow:hidden; box-shadow:var(--shadow); }</p>
+<p class="p1">.card .thumb{ width:100%; aspect-ratio:16/10; background:var(--bg-soft); overflow:hidden; }</p>
+<p class="p1">.card .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }</p>
+<p class="p1">.card .card-body{ padding:14px 16px 16px; }</p>
+<p class="p1">.card h4{ font-family:'Newsreader', serif; font-weight:600; font-size:16.5px; line-height:1.32; margin:8px 0 7px; }</p>
+<p class="p1">.card h4 a:hover{ text-decoration:underline; text-decoration-color:var(--gold); }</p>
+<p class="p1">.card p{ font-size:13px; color:var(--ink-soft); line-height:1.5; margin:0 0 8px; }</p>
+<p class="p1">footer{ background:var(--navy); color:#D6D9E5; margin-top:10px; }</p>
+<p class="p1">footer .footer-top{ padding:44px 26px 10px; }</p>
+<p class="p1">footer .footer-grid{ display:grid; grid-template-columns:repeat(4, 1fr) 1.3fr; gap:30px; padding-bottom:36px; border-bottom:1px solid rgba(255,255,255,0.12); }</p>
+<p class="p1">footer .fcol h4{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#9AA1BC; margin:0 0 16px; }</p>
+<p class="p1">footer .fcol ul{ list-style:none; margin:0; padding:0; display:grid; gap:10px; }</p>
+<p class="p1">footer .fcol a{ color:#D6D9E5; font-size:13.5px; }</p>
+<p class="p1">footer .fcol a:hover{ color:var(--gold); text-decoration:underline; }</p>
+<p class="p1">footer .footer-bottom{ padding:22px 26px 30px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }</p>
+<p class="p1">footer .fmark{ font-family:'Newsreader', serif; font-weight:700; font-style:italic; font-size:20px; color:#fff; }</p>
+<p class="p1">footer .fmark span{ color:var(--gold); font-style:normal; }</p>
+<p class="p1">footer .ftagline{ font-family:'JetBrains Mono', monospace; font-size:11px; color:#8891AB; margin-top:4px; }</p>
+<p class="p1">.search-box{ display:flex; align-items:center; gap:8px; background:var(--bg-soft); border:1px solid var(--line); border-radius:22px; padding:8px 16px; margin:0 0 14px; max-width:320px; }</p>
+<p class="p1">.search-box input{ border:none; background:transparent; outline:none; color:var(--ink); font-family:'Inter', sans-serif; font-size:13px; width:100%; }</p>
+<p class="p1">@media (max-width:900px){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.spotlight{ grid-template-columns:1fr; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.grid-3{ grid-template-columns:1fr 1fr; }</p>
+<p class="p1">}</p>
+<p class="p1">@media (max-width:560px){</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.grid-3{ grid-template-columns:1fr; }</p>
+<p class="p1">}</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1">&lt;div class="top-strip"&gt;&lt;div class="wrap"&gt;&lt;span&gt;Today's Edition&lt;/span&gt;&lt;span class="on-air"&gt;&lt;span class="dot"&gt;&lt;/span&gt;LIVE&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;header class="site-header"&gt;&lt;div class="wrap"&gt;</p>
+<p class="p1">&lt;div class="header-row"&gt;</p>
+<p class="p1">&lt;a class="brand" href="index.html"&gt;&lt;div class="mark"&gt;Back&lt;span&gt;stage&lt;/span&gt;&lt;/div&gt;&lt;div class="tagline"&gt;what's running, right now&lt;/div&gt;&lt;/a&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;form class="search-box" action="#" method="get"&gt;</p>
+<p class="p1">&lt;input type="text" name="q" placeholder="Search headlines..."&gt;</p>
+<p class="p1">&lt;/form&gt;</p>
+<p class="p1">&lt;div class="tabs"&gt;&lt;a class="tab active" href="index.html"&gt;All&lt;/a&gt;&lt;a class="tab" href="#"&gt;News&lt;/a&gt;&lt;a class="tab" href="#"&gt;Entertainment&lt;/a&gt;&lt;a class="tab" href="#"&gt;Sports&lt;/a&gt;&lt;a class="tab" href="#"&gt;Business&lt;/a&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="wrap"&gt;</p>
+<p class="p1">&lt;section&gt;</p>
+<p class="p1">&lt;div class="sec-head"&gt;&lt;h2&gt;Spotlight&lt;/h2&gt;&lt;div class="rule"&gt;&lt;/div&gt;&lt;span class="meta-note"&gt;Latest Stories&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div class="spotlight"&gt;</p>
+<p class="p1">&lt;div class="spotlight-lead"&gt;</p>
+<p class="p1">&lt;div class="thumb" style="background:#ddd; height:250px; display:flex; align-items:center; justify-content:center; color:#555;"&gt;[Image Placeholder]&lt;/div&gt;</p>
+<p class="p1">&lt;span class="chip" style="background:#7D1226"&gt;news&lt;/span&gt;</p>
+<p class="p1">&lt;h3&gt;At Least 50 Dead, Mostly Children, as Overloaded Boat Capsizes in Sokoto&lt;/h3&gt;</p>
+<p class="p1">&lt;p class="excerpt"&gt;An overloaded boat carrying farm workers and children capsized near Gorau in Sokoto’s Goronyo LGA, killing at least 50 people.&lt;/p&gt;</p>
+<p class="p1">&lt;div class="meta"&gt;Staff Reporter · August 20, 2026&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;ul class="trending-list"&gt;</p>
+<p class="p1">&lt;li&gt;&lt;span class="num"&gt;1&lt;/span&gt;&lt;div&gt;&lt;h4&gt;Sokoto Boat Disaster: At Least 50 Dead, Mostly Children&lt;/h4&gt;&lt;div class="meta"&gt;news · August 20, 2026&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;</p>
+<p class="p1">&lt;li&gt;&lt;span class="num"&gt;2&lt;/span&gt;&lt;div&gt;&lt;h4&gt;NDLEA Arrests Influencer ‘KC Luxury’ Over Alleged ₦39bn Cocaine Cartel&lt;/h4&gt;&lt;div class="meta"&gt;news · August 20, 2026&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;</p>
+<p class="p1">&lt;li&gt;&lt;span class="num"&gt;3&lt;/span&gt;&lt;div&gt;&lt;h4&gt;Adeleke Receives Certificate of Return, Pledges Scholarships&lt;/h4&gt;&lt;div class="meta"&gt;news · August 20, 2026&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;</p>
+<p class="p1">&lt;li&gt;&lt;span class="num"&gt;4&lt;/span&gt;&lt;div&gt;&lt;h4&gt;Naira Strengthens to Five-Month High Near ₦1,343/$&lt;/h4&gt;&lt;div class="meta"&gt;business · August 20, 2026&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;</p>
+<p class="p1">&lt;li&gt;&lt;span class="num"&gt;5&lt;/span&gt;&lt;div&gt;&lt;h4&gt;Wizkid, Burna Boy, Asake and Tems Land 2026 BET Nominations&lt;/h4&gt;&lt;div class="meta"&gt;entertainment · August 20, 2026&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;</p>
+<p class="p1">&lt;/ul&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/section&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;footer&gt;</p>
+<p class="p1">&lt;div class="wrap footer-top"&gt;</p>
+<p class="p1">&lt;div class="footer-grid"&gt;</p>
+<p class="p1">&lt;div class="fcol"&gt;&lt;h4&gt;Sections&lt;/h4&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#"&gt;News&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div class="fcol"&gt;&lt;h4&gt;Company&lt;/h4&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="#"&gt;About&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#"&gt;Contact&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div class="fcol"&gt;&lt;h4&gt;Support&lt;/h4&gt;&lt;ul&gt;&lt;li&gt;&lt;a href="#"&gt;Privacy Policy&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;div class="wrap footer-bottom"&gt;</p>
+<p class="p1">&lt;div&gt;</p>
+<p class="p1">&lt;div class="fmark"&gt;Back&lt;span&gt;stage&lt;/span&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div class="ftagline"&gt;what's running, right now · est. 2026&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p1">&lt;/footer&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
