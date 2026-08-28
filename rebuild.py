@@ -20,6 +20,8 @@ Optional caption: add  "<slug>": "Your caption"  to _data/captions.json
 import json, os, re, html as ih
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+import time as _time
+BUST = str(int(_time.time()))
 arts = json.load(open(os.path.join(HERE, "_data", "articles.json"), encoding="utf-8"))
 try:
     CAPS = json.load(open(os.path.join(HERE, "_data", "captions.json"), encoding="utf-8"))
@@ -135,6 +137,9 @@ SCRIPTS = ('<script src="assets/js/jquery.min.js"></script>\n'
  '\t\t\t<script src="assets/js/util.js"></script>\n'
  '\t\t\t<script src="assets/js/main.js"></script>\n'
  '\t\t\t<script src="assets/js/backstage.js"></script>')
+
+FONTS = FONTS.replace("backstage.css", "backstage.css?v=" + BUST)
+SCRIPTS = SCRIPTS.replace("backstage.js", "backstage.js?v=" + BUST)
 
 EDITION = '''\t\t\t\t\t<div class="edition-bar"><div class="inner">
 \t\t\t\t\t\t<span class="live">Live &middot; <span id="today">Today's edition</span></span>
@@ -374,8 +379,9 @@ for fn, a in arts.items():
     if rel:
         cs = "\n".join('''\t\t\t\t\t\t\t<article>
 \t\t\t\t\t\t\t\t<a href="%s" class="thumb"><img src="%s" alt="Backstage %s" onerror="this.onerror=null;this.src='category-%s.png'" /></a>
-\t\t\t\t\t\t\t\t<div class="body"><h3><a href="%s">%s</a></h3></div>
-\t\t\t\t\t\t\t</article>''' % (rf, thumb(rf[:-5], ra["cat"]), ra["cat"], ra["cat"], rf, esc(ra["title"]))
+\t\t\t\t\t\t\t\t<div class="body"><p class="cat-tag" style="background:%s">%s</p><h3><a href="%s">%s</a></h3></div>
+\t\t\t\t\t\t\t</article>''' % (rf, (PHOTOS.get(rf[:-5]) or "category-%s.png" % ra["cat"]), ra["cat"], ra["cat"],
+                                COLOR[ra["cat"]], ra["cat"], rf, esc(ra["title"]))
             for rf, ra in rel)
         rel_html = '''\t\t\t\t\t<section class="related">
 \t\t\t\t\t\t<header class="major"><h2>More %s</h2></header>

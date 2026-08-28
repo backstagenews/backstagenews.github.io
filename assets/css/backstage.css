@@ -70,6 +70,18 @@
 @keyframes bs-ticker{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 @media (prefers-reduced-motion:reduce){ .ticker-track{ animation:none; } }
 
+/* ---------- Lead / spotlight image: consistent banner on all screens ---------- */
+.image.main{ display:block; margin:0 0 2em 0; }
+.image.main img{
+	display:block; width:100%; height:auto;
+	aspect-ratio:2 / 1; object-fit:cover; object-position:center;
+	border-radius:6px;
+}
+@media (max-width:736px){
+	.image.main img{ border-radius:4px; }
+	.image.main{ margin-bottom:1.4em; }
+}
+
 /* ---------- Article: share + related + back-to-top ---------- */
 .article-caption{ display:block; margin-top:.6em; color:#9fa3a6; font-size:.75em; font-style:italic; }
 
@@ -92,9 +104,11 @@
 @media (max-width:980px){ .related-list{ grid-template-columns:1fr; } }
 
 #backtotop{
-	position:fixed; right:1.4em; bottom:1.4em; width:44px; height:44px; border-radius:50%;
-	border:0; background:var(--bs-wine); color:#fff; font-size:1.1em; cursor:pointer; z-index:1000;
-	opacity:0; pointer-events:none; transform:translateY(10px); transition:all .2s;
+	position:fixed; right:1.4em; bottom:1.4em;
+	width:44px; height:44px; min-width:44px; max-width:44px; padding:0; line-height:44px;
+	border-radius:50%; border:0; background:var(--bs-wine); color:#fff; font-size:1.1em;
+	cursor:pointer; z-index:1000; text-align:center;
+	opacity:0; pointer-events:none; transform:translateY(10px); transition:opacity .2s, transform .2s;
 }
 #backtotop.show{ opacity:1; pointer-events:auto; transform:translateY(0); }
 

@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 arts = json.load(open(os.path.join(HERE, "_data", "articles.json"), encoding="utf-8"))
 os.makedirs(os.path.join(HERE, "covers"), exist_ok=True)
 
-W, H = 1200, 675
+W, H = 1200, 600
 PAL = {
     "news":          ("#7D1226", "#4c0a17", "#f3d9b0"),
     "entertainment": ("#B9832A", "#7d5717", "#fbeccb"),
@@ -50,11 +50,11 @@ for fn, a in arts.items():
 
     title = html.unescape(a["title"])
     size = 60 if len(title) < 60 else (52 if len(title) < 95 else 44)
-    per_line = int(W * 0.84 / (size * 0.57))
+    per_line = int(W * 0.80 / (size * 0.57))
     lines = wrap(title, per_line)[:5]
     lh = size * 1.14
     block_h = lh * len(lines)
-    y0 = (H * 0.52) - block_h / 2 + size
+    y0 = (H * 0.54) - block_h / 2 + size
 
     tspans = "".join(
         '<tspan x="70" y="%.0f">%s</tspan>' % (y0 + i * lh, esc(ln)) for i, ln in enumerate(lines)
@@ -84,9 +84,9 @@ for fn, a in arts.items():
   <rect x="0" y="{H1}" width="{W}" height="6" fill="{ink}" opacity="0.9"/>
 </svg>'''.format(
         W=W, H=H, W2=W - 70, H1=H - 6, c1=c1, c2=c2, ink=ink,
-        scallops=scallops, glyph=GLYPH[cat], gx=W - 190, gy=H - 150,
+        scallops=scallops, glyph=GLYPH[cat], gx=W - 175, gy=H - 130,
         size=size, tspans=tspans,
-        by=H - 96, bty=H - 73, cw=len(cat) * 12 + 32, CAT=cat.upper(),
+        by=H - 96, bty=H - 73, cw=len(cat) * 14 + 36, CAT=cat.upper(),
         date=esc(html.unescape(a.get("date_str") or "")),
     )
     open(os.path.join(HERE, "covers", slug + ".svg"), "w", encoding="utf-8").write(svg)
