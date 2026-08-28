@@ -1,0 +1,13 @@
+{
+  "slug": "short-url-name-with-dashes",
+  "title": "The Full Headline, Written Normally",
+  "cat": "news",
+  "byline": "By Staff Reporter",
+  "date": "August 28, 2026",
+  "excerpt": "One sentence that summarises the story. Shows as the standfirst and on cards.",
+  "paras": [
+    "First paragraph of the article.",
+    "Second paragraph. Add as many as you need.",
+    "Last paragraph."
+  ]
+}

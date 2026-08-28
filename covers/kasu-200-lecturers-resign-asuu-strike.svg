@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" font-family="Georgia, 'Roboto Slab', serif">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7D1226"/><stop offset="1" stop-color="#4c0a17"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g)"/>
+  <path d="M 0 0 Q 30 46 60 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 60 0 Q 90 46 120 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 120 0 Q 150 46 180 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 180 0 Q 210 46 240 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 240 0 Q 270 46 300 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 300 0 Q 330 46 360 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 360 0 Q 390 46 420 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 420 0 Q 450 46 480 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 480 0 Q 510 46 540 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 540 0 Q 570 46 600 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 600 0 Q 630 46 660 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 660 0 Q 690 46 720 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 720 0 Q 750 46 780 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 780 0 Q 810 46 840 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 840 0 Q 870 46 900 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 900 0 Q 930 46 960 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 960 0 Q 990 46 1020 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 1020 0 Q 1050 46 1080 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 1080 0 Q 1110 46 1140 0 Z" fill="#4c0a17" opacity="0.35"/><path d="M 1140 0 Q 1170 46 1200 0 Z" fill="#4c0a17" opacity="0.35"/>
+  <text x="1010" y="525" font-size="520" fill="#f3d9b0" opacity="0.06" text-anchor="middle" dominant-baseline="middle">◆</text>
+  <text x="70" y="86" font-size="22" letter-spacing="8" fill="#f3d9b0" font-weight="bold">BACKSTAGE</text>
+  <text x="70" y="112" font-size="14" letter-spacing="4" fill="#f3d9b0" opacity="0.8">WHAT'S RUNNING, RIGHT NOW</text>
+  <text font-size="52" font-weight="bold" fill="#faf7f0"><tspan x="70" y="314">Over 200 Lecturers Resign From</tspan><tspan x="70" y="373">Kaduna State University as ASUU</tspan><tspan x="70" y="433">Threatens Strike</tspan></text>
+  <rect x="70" y="579" width="80" height="34" rx="4" fill="#f3d9b0"/>
+  <text x="86" y="602" font-size="16" letter-spacing="4" fill="#4c0a17" font-weight="bold">NEWS</text>
+  <text x="1130" y="602" font-size="18" fill="#f3d9b0" text-anchor="end" opacity="0.9">August 18, 2026</text>
+  <rect x="0" y="669" width="1200" height="6" fill="#f3d9b0" opacity="0.9"/>
+</svg>

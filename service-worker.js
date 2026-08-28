@@ -1,59 +1,41 @@
-const CACHE_NAME = "backstage-v1";
-const SHELL_FILES = [
-  "/",
-  "/index.html",
-  "/manifest.json",
-  "/icons/icon-192.png",
-  "/icons/icon-512.png"
+/* Backstage service worker — minimal offline shell */
+const CACHE = 'backstage-v1';
+const CORE = [
+  'index.html',
+  'assets/css/main.css',
+  'assets/css/backstage.css',
+  'assets/css/fontawesome-all.min.css',
+  'assets/js/jquery.min.js',
+  'assets/js/browser.min.js',
+  'assets/js/breakpoints.min.js',
+  'assets/js/util.js',
+  'assets/js/main.js',
+  'assets/js/backstage.js'
 ];
 
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(SHELL_FILES))
-  );
+self.addEventListener('install', (e) => {
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE)).catch(() => {}));
   self.skipWaiting();
 });
 
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(
-        keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))
-      )
+      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
     )
   );
   self.clients.claim();
 });
 
-// Network-first for page navigations (so news stays fresh), falling back to
-// cache when offline. Cache-first for other same-origin assets (icons etc).
-self.addEventListener("fetch", (event) => {
-  const req = event.request;
-  if (req.method !== "GET" || new URL(req.url).origin !== self.location.origin) {
-    return;
-  }
-
-  if (req.mode === "navigate") {
-    event.respondWith(
-      fetch(req)
-        .then((res) => {
-          const resClone = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
-          return res;
-        })
-        .catch(() => caches.match(req).then((res) => res || caches.match("/index.html")))
-    );
-    return;
-  }
-
-  event.respondWith(
-    caches.match(req).then((cached) => {
-      if (cached) return cached;
-      return fetch(req).then((res) => {
-        const resClone = res.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+self.addEventListener('fetch', (e) => {
+  if (e.request.method !== 'GET') return;
+  e.respondWith(
+    caches.match(e.request).then((hit) =>
+      hit || fetch(e.request).then((res) => {
+        const copy = res.clone();
+        caches.open(CACHE).then((c) => c.put(e.request, copy)).catch(() => {});
         return res;
-      });
-    })
+      }).catch(() => hit)
+    )
   );
 });
