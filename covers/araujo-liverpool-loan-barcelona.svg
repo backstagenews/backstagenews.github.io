@@ -12,6 +12,6 @@
   <text font-size="60" font-weight="bold" fill="#faf7f0"><tspan x="70" y="281">Ronald Araujo Set for</tspan><tspan x="70" y="350">Liverpool Loan From</tspan><tspan x="70" y="418">Barcelona</tspan></text>
   <rect x="70" y="504" width="120" height="34" rx="4" fill="#e6c893"/>
   <text x="86" y="527" font-size="16" letter-spacing="4" fill="#0f1626" font-weight="bold">SPORTS</text>
-  <text x="1130" y="527" font-size="18" fill="#e6c893" text-anchor="end" opacity="0.9">August 13, 2026</text>
+  <text x="212" y="527" font-size="17" fill="#e6c893" opacity="0.85">August 13, 2026</text>
   <rect x="0" y="594" width="1200" height="6" fill="#e6c893" opacity="0.9"/>
 </svg>

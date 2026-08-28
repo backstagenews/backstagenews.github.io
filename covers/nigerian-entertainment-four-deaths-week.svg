@@ -12,6 +12,6 @@
   <text font-size="52" font-weight="bold" fill="#faf7f0"><tspan x="70" y="317">Nigerian Entertainment Industry</tspan><tspan x="70" y="376">Mourns Four Deaths in One Week</tspan></text>
   <rect x="70" y="504" width="218" height="34" rx="4" fill="#fbeccb"/>
   <text x="86" y="527" font-size="16" letter-spacing="4" fill="#7d5717" font-weight="bold">ENTERTAINMENT</text>
-  <text x="1130" y="527" font-size="18" fill="#fbeccb" text-anchor="end" opacity="0.9">August 13, 2026</text>
+  <text x="310" y="527" font-size="17" fill="#fbeccb" opacity="0.85">August 13, 2026</text>
   <rect x="0" y="594" width="1200" height="6" fill="#fbeccb" opacity="0.9"/>
 </svg>

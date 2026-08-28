@@ -80,13 +80,13 @@ for fn, a in arts.items():
   <text font-size="{size}" font-weight="bold" fill="#faf7f0">{tspans}</text>
   <rect x="70" y="{by}" width="{cw}" height="34" rx="4" fill="{ink}"/>
   <text x="86" y="{bty}" font-size="16" letter-spacing="4" fill="{c2}" font-weight="bold">{CAT}</text>
-  <text x="{W2}" y="{bty}" font-size="18" fill="{ink}" text-anchor="end" opacity="0.9">{date}</text>
+  <text x="{dx}" y="{bty}" font-size="17" fill="{ink}" opacity="0.85">{date}</text>
   <rect x="0" y="{H1}" width="{W}" height="6" fill="{ink}" opacity="0.9"/>
 </svg>'''.format(
         W=W, H=H, W2=W - 70, H1=H - 6, c1=c1, c2=c2, ink=ink,
         scallops=scallops, glyph=GLYPH[cat], gx=W - 175, gy=H - 130,
         size=size, tspans=tspans,
-        by=H - 96, bty=H - 73, cw=len(cat) * 14 + 36, CAT=cat.upper(),
+        by=H - 96, bty=H - 73, cw=len(cat) * 14 + 36, CAT=cat.upper(), dx=70 + (len(cat) * 14 + 36) + 22,
         date=esc(html.unescape(a.get("date_str") or "")),
     )
     open(os.path.join(HERE, "covers", slug + ".svg"), "w", encoding="utf-8").write(svg)
